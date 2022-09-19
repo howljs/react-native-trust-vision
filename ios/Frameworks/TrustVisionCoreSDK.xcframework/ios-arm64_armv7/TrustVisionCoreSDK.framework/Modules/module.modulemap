@@ -1,0 +1,11 @@
+framework module TrustVisionCoreSDK {
+  umbrella header "TrustVisionCoreSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module TrustVisionCoreSDK.Swift {
+    header "TrustVisionCoreSDK-Swift.h"
+    requires objc
+}

@@ -1,0 +1,30 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TrustVisionSDK
+import Foundation
+import Swift
+import TrustVisionAPI
+import TrustVisionCoreSDK
+@_exported import TrustVisionSDK
+import _Concurrency
+public typealias TrustVisionProtocolType = TrustVisionCoreSDK.TrustVisionSdkUiOnlyProtocol
+@_inheritsConvenienceInitializers @objc public class TrustVisionSdkWrapper : ObjectiveC.NSObject {
+  @objc public static func initialize(clientSettingsJsonString: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc public static func initialize(clientSettings: TrustVisionAPI.TVClientSettingsResponse?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc public static func startIdCapturing(configuration: TrustVisionCoreSDK.TVIdCardConfiguration, framesRecordedCallback: @escaping TrustVisionCoreSDK.FramesRecordedCallback, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc public static func startSelfieCapturing(configuration: TrustVisionCoreSDK.TVSelfieConfiguration, framesRecordedCallback: @escaping TrustVisionCoreSDK.FramesRecordedCallback, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TrustVisionSdk : TrustVisionCoreSDK.BaseTrustVisionSdk, TrustVisionSDK.TrustVisionProtocolType {
+  @objc public static let shared: TrustVisionSDK.TrustVisionProtocolType
+  @objc deinit
+}
+public class TVClientTheme : TrustVisionCoreSDK.TVTheme {
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVClientViewControllerBuilder : TrustVisionCoreSDK.TVViewControllerBuilderProtocol {
+  @objc deinit
+}

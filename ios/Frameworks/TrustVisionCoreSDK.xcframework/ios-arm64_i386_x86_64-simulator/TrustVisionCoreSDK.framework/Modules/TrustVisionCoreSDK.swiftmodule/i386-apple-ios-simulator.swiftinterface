@@ -1,0 +1,2614 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target i386-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TrustVisionCoreSDK
+import AVFoundation
+import AVKit
+import Accelerate
+import CocoaLumberjack
+import CommonCrypto
+import CoreGraphics
+import CoreImage
+import CoreLocation
+import CoreMotion
+import Darwin
+import Foundation
+import ImageIO
+import Metal
+import MetalKit
+import MetalPerformanceShaders
+import PromiseKit
+import Swift
+import TensorFlowLite
+import TrustVisionAPI
+@_exported import TrustVisionCoreSDK
+import UIKit.UIImage
+import UIKit
+import VideoToolbox
+import _Concurrency
+import Accelerate.vImage
+public protocol TVClientSpecificationConfigProtocol : ObjectiveC.NSObject {
+  var viewControllerBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol { get }
+  var theme: TrustVisionCoreSDK.TVTheme { get set }
+}
+@objc @_inheritsConvenienceInitializers public class TVClientSpecificationConfig : ObjectiveC.NSObject, TrustVisionCoreSDK.TVClientSpecificationConfigProtocol {
+  public var viewControllerBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol
+  public var theme: TrustVisionCoreSDK.TVTheme
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum SdkMode {
+  case Full
+  case UiOnly
+  public static func == (a: TrustVisionCoreSDK.SdkMode, b: TrustVisionCoreSDK.SdkMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class BaseTrustVisionSdk : ObjectiveC.NSObject {
+  public static let _IS_DEBUG_LIVENESS_DETEOCTOR: Swift.Bool
+  public static let _IS_DEBUG_ID_DETEOCTOR: Swift.Bool
+  open var stepsToRandom: [TrustVisionCoreSDK.TVFaceDetectionType] {
+    get
+  }
+  @objc override dynamic public init()
+  public init(logServerBaseUrl: Swift.String?, logServerAccess: Swift.String?, logServerSecret: Swift.String?)
+  @objc public func getLogFilePaths() -> [Swift.String]
+  public func addImagePostProcessor(_ imagePostProcessor: TrustVisionCoreSDK.TrustVisionSdkImagePostProcessorProtocol?)
+  @objc deinit
+}
+extension TrustVisionCoreSDK.BaseTrustVisionSdk {
+  public func setExcludedCardTypeStrings(_ excludedCardTypeStrings: [Swift.String])
+  public func customizePageName(pageNameDict: [Swift.String : Swift.String])
+  public func customizeEventName(eventNameDict: [TrustVisionCoreSDK.TVTrackingEvent.Event : Swift.String])
+  @objc dynamic public func updateLanguage(languageCode: Swift.String)
+  @objc dynamic public func changeLanguageCode(languageCode: Swift.String)
+  @objc dynamic public func getLanguageCode() -> Swift.String?
+  @objc dynamic public func getSupportedLanguageCodes() -> [Swift.String]
+  @objc dynamic public func startIdCapturing(configuration: TrustVisionCoreSDK.TVIdCardConfiguration, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc dynamic public func startSelfieCapturing(configuration: TrustVisionCoreSDK.TVSelfieConfiguration, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+}
+extension TrustVisionCoreSDK.BaseTrustVisionSdk {
+  @objc dynamic public func initialize(baseUrl: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, xRequestId: Swift.String?, isForced: Swift.Bool, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc dynamic public func initialize(accessKeyId: Swift.String, accessKeySecret: Swift.String, baseUrl: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, xRequestId: Swift.String?, isForced: Swift.Bool, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc dynamic public func startFullFlow(config: TrustVisionCoreSDK.TVSDKConfig, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc dynamic public func getCardTypes() -> [TrustVisionCoreSDK.TVCardType]
+  @objc dynamic public func getLivenessOptions() -> [Swift.String]
+  @objc dynamic public func getSelfieCameraMode() -> TrustVisionCoreSDK.TVCameraOption
+  @objc dynamic public func getIdCardSanityCheckingEnable() -> Swift.Bool
+  @objc dynamic public func getSelfieSanityCheckingEnable() -> Swift.Bool
+  @objc dynamic public func getSupportTransaction() -> Swift.Bool
+  @objc dynamic public func startTransaction(referenceId: Swift.String?, success: @escaping (Swift.String?) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc dynamic public func endTransaction(success: @escaping () -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc dynamic public func matchFace(image1Id: Swift.String, image2Id: Swift.String, success: @escaping (TrustVisionCoreSDK.TVCompareFacesResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc dynamic public func downloadImage(imageId: Swift.String, success: @escaping (UIKit.UIImage?) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc dynamic public func pushServerLog(tag: Swift.String, event: Swift.String, log: [Swift.String : Any])
+}
+extension TrustVisionCoreSDK.BaseTrustVisionSdk {
+  @objc dynamic public func initialize(clientSettingsJsonString: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc dynamic public func initialize(clientSettings: TrustVisionAPI.TVClientSettingsResponse?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc dynamic public func startIdCapturing(configuration: TrustVisionCoreSDK.TVIdCardConfiguration, framesRecordedCallback: @escaping TrustVisionCoreSDK.FramesRecordedCallback, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc dynamic public func startSelfieCapturing(configuration: TrustVisionCoreSDK.TVSelfieConfiguration, framesRecordedCallback: @escaping TrustVisionCoreSDK.FramesRecordedCallback, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+}
+@_inheritsConvenienceInitializers @objc public class DeviceInfo : ObjectiveC.NSObject, TrustVisionAPI.DeviceInfoProtocol {
+  @objc override dynamic public init()
+  @objc public func getPlatform() -> Swift.String
+  @objc public func getOSVersion() -> Swift.String
+  @objc public func getSDKVersion() -> Swift.String
+  @objc public func getDeviceModel() -> Swift.String
+  @objc public func getDeviceId() -> Swift.String
+  @objc public func getLocalIpAddress() -> Swift.String?
+  @objc public func getPublicIpAddress() -> Swift.String?
+  @objc deinit
+}
+extension Foundation.Bundle {
+  public static func addLanguageCode(_ languageCode: Swift.String)
+  public static func getSupportedLanguageCodes() -> [Swift.String]
+  public static func getCurrentBundle() -> Foundation.Bundle
+}
+public class Throttler {
+  public init(timeFrame: Foundation.TimeInterval, queue: Dispatch.DispatchQueue = .main)
+  public func run(action: @escaping () -> Swift.Void)
+  @objc deinit
+}
+public class Debouncer {
+  public init(delay: Foundation.TimeInterval, queue: Dispatch.DispatchQueue = .main)
+  public func run(action: @escaping () -> Swift.Void)
+  @objc deinit
+}
+public class QueueWithSize {
+  public init(size: Swift.Int, queue: Dispatch.DispatchQueue = .main, ignoreIfQueueFull: Swift.Bool = true)
+  public func run(action: @escaping (_ completion: @escaping () -> Swift.Void) -> Swift.Void)
+  @objc deinit
+}
+public class ThrottleAndSizeLimitQueue {
+  public init(timeFrame: Foundation.TimeInterval, size: Swift.Int, queue: Dispatch.DispatchQueue = .main)
+  public func run(action: @escaping () -> Swift.Void)
+  @objc deinit
+}
+extension CoreImage.CIImage {
+  public func padBorder(targetWidth: Swift.Int, targetHeight: Swift.Int, color: UIKit.UIColor) -> CoreImage.CIImage?
+  public var correctedExtent: CoreImage.CIImage {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class DEBUG_ProgressBar : TrustVisionCoreSDK.TVBaseProgressView {
+  @_Concurrency.MainActor(unsafe) override public func setupViews()
+  @_Concurrency.MainActor(unsafe) override public func setupLayouts()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DeviceModelInfo {
+  @objc deinit
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public static func getModelIdentifier() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public static func getModelInfo() -> TrustVisionCoreSDK.DeviceModelInfo?
+  @_Concurrency.MainActor(unsafe) public static let modelName: Swift.String
+}
+open class IDDetectionViewModel : TrustVisionCoreSDK.IDDetectionViewModelProtocol {
+  weak open var view: (UIKit.UIViewController & TrustVisionCoreSDK.IDDetectionViewProtocol)?
+  open var sdkSettings: TrustVisionCoreSDK.TVIdDetectionSdkSettingsProtocol
+  open var session: TrustVisionCoreSDK.TVIdDetectionSessionProtocol
+  open var userConfig: TrustVisionCoreSDK.TVIdDetectionConfigProtocol
+  open var viewBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol
+  open var serverLogManager: TrustVisionCoreSDK.TVServerLogManagerProtocol
+  open var idDetectorType: TrustVisionCoreSDK.TVIdDetectorProtocol.Type
+  required public init(sdkSettings: TrustVisionCoreSDK.TVIdDetectionSdkSettingsProtocol, session: TrustVisionCoreSDK.TVIdDetectionSessionProtocol, userConfig: TrustVisionCoreSDK.TVIdDetectionConfigProtocol, viewBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol, serverLogManager: TrustVisionCoreSDK.TVServerLogManagerProtocol, idDetectorType: TrustVisionCoreSDK.TVIdDetectorProtocol.Type)
+  open var isTrackingPaused: Swift.Bool
+  open var isStopTrackingWhenScanWrongQR: Swift.Bool {
+    get
+  }
+  public var isCurrentViewForCaptureQR: Swift.Bool
+  open func getCurrentStep() -> TrustVisionCoreSDK.TVSDKConfig.Step
+  public var idDetector: TrustVisionCoreSDK.TVIdDetectorProtocol?
+  public var firstAutoIdImageCapturedDate: Foundation.Date?
+  public var needReadQr: Swift.Bool
+  public var containQR: Swift.Bool {
+    get
+    set
+  }
+  public var capturedImages: [UIKit.UIImage] {
+    get
+    set
+  }
+  public var idCapturePromise: (PromiseKit.Promise<Swift.Void>, PromiseKit.Resolver<Swift.Void>)?
+  public var qrCapturePromise: (PromiseKit.Promise<Swift.Void>, PromiseKit.Resolver<Swift.Void>)?
+  public var EXPECTED_IMAGE_DETECTION_PADDING_RATIO: CoreGraphics.CGFloat {
+    get
+  }
+  open func viewDidLoad()
+  open func viewDidDisappear()
+  open func setupViewWithCurrentConfig()
+  open func doneCapturingId()
+  open func doneCapuringQr()
+  open func cameraDidCaptureImage(image: UIKit.UIImage)
+  open func handleQR(pixelBuffer: CoreVideo.CVPixelBuffer?, qrString: Swift.String)
+  public func updateUIQRFrame(isError: Swift.Bool, isSuccess: Swift.Bool)
+  open func qrAlertDismissed()
+  open func didChooseRetryScanningQr()
+  open func captureButtonPressed()
+  open func skipButtonPressed()
+  open func navigateToNextStep()
+  open func didPickImageFromGallery(_ uiimage: UIKit.UIImage)
+  open func cameraViewUserDeniedPermission()
+  open func hideCaptureButton() -> Swift.Bool
+  open func isCardInLandscape() -> Swift.Bool
+  open func frameFired(pixelBuffer: CoreVideo.CVPixelBuffer, croppedPixelBuffer: CoreVideo.CVPixelBuffer?, videoIndex: Swift.Int)
+  open func titleString() -> Swift.String?
+  open func startDetectingId()
+  open func updateUi(error: TrustVisionCoreSDK.TVError?)
+  open func handleIdDidCaptured()
+  public func pauseQrScanningTimer()
+  public func resumeQrScanningTimer()
+  @objc deinit
+}
+extension TrustVisionCoreSDK.IDDetectionViewModel {
+  public func setupCamera()
+  public func prepareAndUpdateUIForCapturingQR()
+}
+extension TrustVisionCoreSDK.IDDetectionViewModel : TrustVisionCoreSDK.TVDetectorDelegate {
+  open func startRecording()
+  open func stopRecording(callback: ((Foundation.URL?) -> Swift.Void)?)
+  open func timeout()
+  open func timeRemaining(remainedSeconds: Swift.Int)
+  public func setExpectedPaddingValue(vertical: Swift.Double, horizontal: Swift.Double)
+}
+public protocol Localizable {
+  var localized: Swift.String { get }
+}
+extension Swift.String : TrustVisionCoreSDK.Localizable {
+  public var localized: Swift.String {
+    get
+  }
+  public func isNotBlank() -> Swift.Bool
+}
+public protocol XIBLocalizable {
+  var xibLocKey: Swift.String? { get set }
+}
+extension UIKit.UILabel : TrustVisionCoreSDK.XIBLocalizable {
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) dynamic public var xibLocKey: Swift.String? {
+    @objc get
+    @objc set(key)
+  }
+}
+extension UIKit.UIButton : TrustVisionCoreSDK.XIBLocalizable {
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) dynamic public var xibLocKey: Swift.String? {
+    @objc get
+    @objc set(key)
+  }
+}
+extension UIKit.UIView {
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func autoPinEdgesTo(view: UIKit.UIView, withOffset: CoreGraphics.CGFloat = 0) -> [UIKit.NSLayoutConstraint]
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func autoPinEdgesToSuperViewEdges(withOffset: CoreGraphics.CGFloat = 0) -> [UIKit.NSLayoutConstraint]
+}
+@_hasMissingDesignatedInitializers public class PureLayoutHelper {
+  public static func arrangeViewsHorizontally(_ views: [UIKit.UIView], interSpacing: CoreGraphics.CGFloat, leadingAndTrailingInset: CoreGraphics.CGFloat = 0)
+  public static func arrangeViewsHorizontallyEqualWidth(_ views: [UIKit.UIView], interSpacing: CoreGraphics.CGFloat, leadingAndTrailingInset: CoreGraphics.CGFloat = 0)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutIDDetectionResultVIewController : TrustVisionCoreSDK.PureLayoutTVDetectionResultBaseViewController {
+  @_Concurrency.MainActor(unsafe) public var topBackgroundImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var topView: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) public var topIc: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var topLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) open var verticalScale: Swift.Float
+  @_Concurrency.MainActor(unsafe) open var horizontalScale: Swift.Float
+  @_Concurrency.MainActor(unsafe) override public func getCurrentStep() -> TrustVisionCoreSDK.TVSDKConfig.Step
+  @_Concurrency.MainActor(unsafe) public var cardSide: TrustVisionCoreSDK.TVCardSide
+  @_Concurrency.MainActor(unsafe) public var cardFrameView: TrustVisionCoreSDK.TVIdCardFrameView!
+  @_Concurrency.MainActor(unsafe) override public var closeButton: UIKit.UIButton! {
+    @_Concurrency.MainActor(unsafe) get
+  }
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) override open func setupViewWithCurrentConfig()
+  @_Concurrency.MainActor(unsafe) open func updateIsQrScanSuccessful(_ isSuccessful: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) override open func setupActions()
+  @_Concurrency.MainActor(unsafe) public func getCardImage() -> UIKit.UIImage?
+  @_Concurrency.MainActor(unsafe) open func checkBlurImageAndShowError() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) public func getBlurScore() -> Swift.Double
+  @_Concurrency.MainActor(unsafe) override open func instructionLabelString() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) override open func titleLabelString() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutIDDetectionViewController : TrustVisionCoreSDK.PureLayoutTVBaseDetectionViewController, TrustVisionCoreSDK.IDDetectionViewProtocol {
+  @_Concurrency.MainActor(unsafe) public var viewModel: TrustVisionCoreSDK.IDDetectionViewModelProtocol?
+  @_Concurrency.MainActor(unsafe) open func showDescription() -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var timeoutLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var cardSideSubscriptionLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var idCardFrameView: TrustVisionCoreSDK.TVIdCardFrameView!
+  @_Concurrency.MainActor(unsafe) public var idCardFrameViewTopConstraint: UIKit.NSLayoutConstraint?
+  @_Concurrency.MainActor(unsafe) public var transparentBackgroundView: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) public var skipButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var errorLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var instructionScrollView: UIKit.UIScrollView!
+  @_Concurrency.MainActor(unsafe) public var instructionContentView: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) public var instructionLabel: TrustVisionCoreSDK.TVUIImageLabel!
+  @_Concurrency.MainActor(unsafe) public var captureButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var galleryButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var qrAlertViewController: TrustVisionCoreSDK.TVAlertViewProtocol?
+  @_Concurrency.MainActor(unsafe) @objc override open func closeButtonPressed()
+  @_Concurrency.MainActor(unsafe) override open func setupViewWithCurrentConfig()
+  @_Concurrency.MainActor(unsafe) override public var closeButton: UIKit.UIButton! {
+    @_Concurrency.MainActor(unsafe) get
+  }
+  @_Concurrency.MainActor(unsafe) open func setupViewConfig(cardSide: TrustVisionCoreSDK.TVCardSide)
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) open func setupMaskViewCardFrame()
+  @_Concurrency.MainActor(unsafe) override open func titleLabelString() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) override open func setupActions()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) open func showQrAlert(footerLabel: Swift.String?)
+  @_Concurrency.MainActor(unsafe) open func setupLayoutsForIdCardFrameView()
+  @_Concurrency.MainActor(unsafe) open func updateUIForCapturingQR()
+  @_Concurrency.MainActor(unsafe) public func focusCameraOnIdFrame()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLayoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func navigateToNextStep()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func touchesBegan(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) open func showWrongFormatQrAlert()
+  @_Concurrency.MainActor(unsafe) open func updateTimeoutLabel(text: Swift.String?)
+  @_Concurrency.MainActor(unsafe) public func dismissAlertView()
+  @_Concurrency.MainActor(unsafe) open func updateAlertFooterText(_ text: Swift.String?)
+  @_Concurrency.MainActor(unsafe) public func enableCaptureButton(isEnable: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func hideCaptureButton(isHide: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func pushToViewController(_ vc: UIKit.UIViewController)
+  @_Concurrency.MainActor(unsafe) public func hidePhotoGalleryButton(isHidden: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func hideSkipButton(isHidden: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func showTitleLabel(_ titleLabel: Swift.String?)
+  @_Concurrency.MainActor(unsafe) public func getIdMaskFractionalFrame() -> (pixelFrame: CoreGraphics.CGRect, fractionFrame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) public func getCameraOutputInCardFrame(_ cameraOutput: CoreImage.CIImage) -> CoreImage.CIImage
+  @_Concurrency.MainActor(unsafe) public func extractQr(ciImage: CoreImage.CIImage, pixelBuffer: CoreVideo.CVPixelBuffer)
+  @_Concurrency.MainActor(unsafe) open func updateUIQRFrame(isError: Swift.Bool, isSuccess: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func updateCardFrame(isError: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func updateErrorLabel(errorString: Swift.String?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension TrustVisionCoreSDK.PureLayoutIDDetectionViewController : UIKit.UINavigationControllerDelegate, UIKit.UIImagePickerControllerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func imagePickerController(_ picker: UIKit.UIImagePickerController, didFinishPickingMediaWithInfo info: [UIKit.UIImagePickerController.InfoKey : Any])
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutTVBaseDetectionViewController : TrustVisionCoreSDK.TVViewController {
+  @_Concurrency.MainActor(unsafe) public var cameraView: TrustVisionCoreSDK.TVCameraView!
+  @_Concurrency.MainActor(unsafe) public func replayStep(_ step: TrustVisionCoreSDK.TVSDKConfig.Step)
+  @_Concurrency.MainActor(unsafe) public func finishCurrentStep(currentStep: TrustVisionCoreSDK.TVSDKConfig.Step, error: TrustVisionCoreSDK.TVError?)
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) public func setupCamera(cameraConfig: TrustVisionCoreSDK.TVCameraConfig, callback: (() -> Swift.Void)?)
+  @_Concurrency.MainActor(unsafe) public func startCamera()
+  @_Concurrency.MainActor(unsafe) public func stopCamera()
+  @_Concurrency.MainActor(unsafe) public func cameraCapture()
+  @_Concurrency.MainActor(unsafe) public func switchToCamera(position: AVFoundation.AVCaptureDevice.Position)
+  @_Concurrency.MainActor(unsafe) public func startRecording(url: Foundation.URL)
+  @_Concurrency.MainActor(unsafe) public func stopRecording(callback: ((Foundation.URL?) -> Swift.Void)?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutTVCompareViewController : TrustVisionCoreSDK.TVViewController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutTVDetectionResultBaseViewController : TrustVisionCoreSDK.PureLayoutTVBaseDetectionViewController {
+  @_Concurrency.MainActor(unsafe) public func getCurrentStep() -> TrustVisionCoreSDK.TVSDKConfig.Step
+  @_Concurrency.MainActor(unsafe) public var mainView: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) public var mainViewTopConstraint: UIKit.NSLayoutConstraint?
+  @_Concurrency.MainActor(unsafe) public var instructionLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var looksGoodButton: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) public var tryAgainButton: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) override public func setupViews()
+  @_Concurrency.MainActor(unsafe) open func instructionLabelString() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) override open func setupViewWithCurrentConfig()
+  @_Concurrency.MainActor(unsafe) override public func setupLayouts()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutTVLivenessDetectionResultViewController : TrustVisionCoreSDK.PureLayoutTVDetectionResultBaseViewController {
+  @_Concurrency.MainActor(unsafe) override public func getCurrentStep() -> TrustVisionCoreSDK.TVSDKConfig.Step
+  @_Concurrency.MainActor(unsafe) public var selfieImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var selfieFrameImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) override public var closeButton: UIKit.UIButton! {
+    @_Concurrency.MainActor(unsafe) get
+  }
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func instructionLabelString() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) override open func setupViewWithCurrentConfig()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) override open func setupActions()
+  @_Concurrency.MainActor(unsafe) override open func titleLabelString() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) public func stepImageAtIndex(_ index: Swift.Int) -> UIKit.UIImage?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutTVLivenessDetectionViewController : TrustVisionCoreSDK.PureLayoutTVBaseDetectionViewController, TrustVisionCoreSDK.TVLivenessDetectionViewProtocol {
+  @_Concurrency.MainActor(unsafe) public var viewModel: TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol?
+  @_Concurrency.MainActor(unsafe) open var stepIndicatorViewOffset: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var livenessStepsViewHeight: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var livenessStepViewsInterspace: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var instructionAboveOffset: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var currentStepViewInset: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var selfieBgImageViewMarginTop: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var selfieBgImageViewMarginVertical: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var livenessStepViews: [TrustVisionCoreSDK.PureLayoutTVLivenessStepViewProtocol]
+  @_Concurrency.MainActor(unsafe) public var DEBUG_selfieBgImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var selfieBgImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var selfieBgImageViewConstraints: [UIKit.NSLayoutConstraint?]
+  @_Concurrency.MainActor(unsafe) public var leftRightProgressView: TrustVisionCoreSDK.DEBUG_ProgressBar!
+  @_Concurrency.MainActor(unsafe) public var upDownProgressView: TrustVisionCoreSDK.DEBUG_ProgressBar!
+  @_Concurrency.MainActor(unsafe) public var leftRightLabel: UIKit.UILabel!
+  @_Concurrency.MainActor(unsafe) public var upDownLabel: UIKit.UILabel!
+  @_Concurrency.MainActor(unsafe) public var coolDownLabel: UIKit.UILabel!
+  @_Concurrency.MainActor(unsafe) public var timeoutLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var debugLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var instructionLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var coolDownAnimationView: TrustVisionCoreSDK.TVSelfieTimeoutViewProtocol!
+  @_Concurrency.MainActor(unsafe) public var captureButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var livenessStepsView: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) public var currentStepIndicatorView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var errorLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var flipCameraButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) override public var closeButton: UIKit.UIButton! {
+    @_Concurrency.MainActor(unsafe) get
+  }
+  @_Concurrency.MainActor(unsafe) open func applyStateToSelfieBgImageView(isDetected: Swift.Bool, nextStep: TrustVisionCoreSDK.TVFaceDetectionType?)
+  @_Concurrency.MainActor(unsafe) public func isProgressArrowShown() -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override open func closeButtonPressed()
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) override open func setupActions()
+  @_Concurrency.MainActor(unsafe) open func createStepsViews(numberOfSteps: Swift.Int)
+  @_Concurrency.MainActor(unsafe) public func animateToStepViewAtIndex(_ index: Swift.Int)
+  @_Concurrency.MainActor(unsafe) open func animateCurrentStepView(toView: UIKit.UIView?, animated: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) public func hideFlipCameraButton(isHidden: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func addNotifications()
+  @_Concurrency.MainActor(unsafe) public func removeNotifications()
+  @_Concurrency.MainActor(unsafe) public func setLivenessStepsViewTransparent(isTransparent: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func hideCaptureButton(isHidden: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func hideCoolDownLabel(isHidden: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func setCooldownLabelText(text: Swift.String?)
+  @_Concurrency.MainActor(unsafe) public func enableCaptureButton(isEnable: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func setInstructionLabel(text: Swift.String?)
+  @_Concurrency.MainActor(unsafe) open func setupViewConfig()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLayoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) override open func setupViewWithCurrentConfig()
+  @_Concurrency.MainActor(unsafe) public func updateUIForStep(previousImage: UIKit.UIImage?, stepIndex: Swift.Int, step: TrustVisionCoreSDK.TVFaceDetectionType?, isCurrentStep: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func showGesturesView(isHidden: Swift.Bool, currentProgress: Swift.Float)
+  @_Concurrency.MainActor(unsafe) open func showGestureInstructionString(gestureString: Swift.String)
+  @_Concurrency.MainActor(unsafe) public func hideCurrentStepIndicator(isHidden: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func showErrorString(errorString: Swift.String?)
+  @_Concurrency.MainActor(unsafe) open func createTVSelfieTimeoutView() -> TrustVisionCoreSDK.TVSelfieTimeoutViewProtocol
+  @_Concurrency.MainActor(unsafe) open func setTimeoutLabel(text: Swift.String?, remainingTime: Swift.Int)
+  @_Concurrency.MainActor(unsafe) open func animateCooldownView() -> Swift.Double
+  @_Concurrency.MainActor(unsafe) public func stopCooldownAnimation()
+  @_Concurrency.MainActor(unsafe) public func animateCooldownProgressIn(_ seconds: Swift.Float)
+  @_Concurrency.MainActor(unsafe) public func DEBUG_updateGestureScores(leftRightScore: Swift.Float, upDownScore: Swift.Float)
+  @_Concurrency.MainActor(unsafe) public func DEBUG_updateSelfieImage(_ image: UIKit.UIImage?)
+  @_Concurrency.MainActor(unsafe) public func DEBUG_updateLabel(text: Swift.String?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension TrustVisionCoreSDK.TVFaceDetectionType {
+  public var imageActive: UIKit.UIImage {
+    get
+  }
+  public var imageInactive: UIKit.UIImage {
+    get
+  }
+}
+public protocol PureLayoutTVLivenessStepViewProtocol : UIKit.UIView {
+  func applyState(state: TrustVisionCoreSDK.PureLayoutTVLivenessStepView.State)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PureLayoutTVLivenessStepView : TrustVisionCoreSDK.TVBaseView, TrustVisionCoreSDK.PureLayoutTVLivenessStepViewProtocol {
+  @_Concurrency.MainActor(unsafe) open var faceImageInset: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var faceImageStartOffset: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var faceImageEndOffset: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var faceImageViewCornerRadius: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var cornerRadius: CoreGraphics.CGFloat {
+    get
+  }
+  public enum State {
+    case past(UIKit.UIImage)
+    case current(TrustVisionCoreSDK.TVFaceDetectionType)
+    case future(TrustVisionCoreSDK.TVFaceDetectionType)
+  }
+  @_Concurrency.MainActor(unsafe) public var faceImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var faceBackgroundImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) public func showImage()
+  @_Concurrency.MainActor(unsafe) open func applyState(state: TrustVisionCoreSDK.PureLayoutTVLivenessStepView.State)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SergeiGestureTest : ObjectiveC.NSObject {
+  public func runTest(image: UIKit.UIImage) -> CoreGraphics.CGFloat
+  public func runTestLandmarks(landmarks: [CoreGraphics.CGPoint]) -> CoreGraphics.CGFloat
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SoundPlayer : ObjectiveC.NSObject {
+  public static let shared: TrustVisionCoreSDK.SoundPlayer
+  public func playSound(url: Foundation.URL?)
+  public func playSound(sound: TrustVisionCoreSDK.Sound)
+  public func reset()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum Sound : Swift.String {
+  case welldone
+  case sorryNotMatch
+  case congratulation
+  case hintId
+  case hintLiveness
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum Algorithm {
+  case md5, sha1, sha224, sha256, sha384, sha512
+  public static func == (a: TrustVisionCoreSDK.Algorithm, b: TrustVisionCoreSDK.Algorithm) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol Hashable {
+  associatedtype Hash
+  func digest(_ algorithm: TrustVisionCoreSDK.Algorithm, key: Swift.String?) -> Self.Hash
+  var md5: Self.Hash { get }
+  var sha1: Self.Hash { get }
+  var sha224: Self.Hash { get }
+  var sha256: Self.Hash { get }
+  var sha384: Self.Hash { get }
+  var sha512: Self.Hash { get }
+}
+extension TrustVisionCoreSDK.Hashable {
+  public var md5: Self.Hash {
+    get
+  }
+  public var sha1: Self.Hash {
+    get
+  }
+  public var sha224: Self.Hash {
+    get
+  }
+  public var sha256: Self.Hash {
+    get
+  }
+  public var sha384: Self.Hash {
+    get
+  }
+  public var sha512: Self.Hash {
+    get
+  }
+}
+extension Swift.String : TrustVisionCoreSDK.Hashable {
+  public func digest(_ algorithm: TrustVisionCoreSDK.Algorithm) -> Swift.String
+  public func digest(_ algorithm: TrustVisionCoreSDK.Algorithm, key: Swift.String?) -> Swift.String
+  public func digest(_ algorithm: TrustVisionCoreSDK.Algorithm, key: Foundation.Data?) -> Swift.String
+  public typealias Hash = Swift.String
+}
+extension Foundation.Data : TrustVisionCoreSDK.Hashable {
+  public func digest(_ algorithm: TrustVisionCoreSDK.Algorithm) -> Foundation.Data
+  public func digest(_ algorithm: TrustVisionCoreSDK.Algorithm, key: Swift.String?) -> Foundation.Data
+  public func digest(_ algorithm: TrustVisionCoreSDK.Algorithm, key: Foundation.Data?) -> Foundation.Data
+  public typealias Hash = Foundation.Data
+}
+extension Swift.UnsafeMutablePointer where Pointee == Swift.CUnsignedChar {
+  public func toHexString(count: Swift.Int) -> Swift.String
+}
+public enum TVSdkEnvironment {
+  case testing
+  case staging
+  case production
+  public static func == (a: TrustVisionCoreSDK.TVSdkEnvironment, b: TrustVisionCoreSDK.TVSdkEnvironment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc public class TVLocalizationFile : ObjectiveC.NSObject {
+  @objc public init(languageCode: Swift.String, contentData: Foundation.Data?)
+  @objc deinit
+}
+public typealias VerifyFaceSDKBlock = (TrustVisionCoreSDK.TVDetectionResult?, TrustVisionCoreSDK.TVError?) -> Swift.Void
+public typealias FramesRecordedCallback = (_ batchId: Swift.String, _ frames: [Swift.String : Any], _ metadata: [Swift.String : Any]?, _ currentBatchIds: [Swift.String]) -> Swift.Void
+@objc public protocol TrustVisionSdkProtocol {
+  @objc func getLogFilePaths() -> [Swift.String]
+  @objc func changeLanguageCode(languageCode: Swift.String)
+  @objc func getLanguageCode() -> Swift.String?
+  @objc func getSupportedLanguageCodes() -> [Swift.String]
+}
+@objc public protocol TrustVisionSdkFullProtocol : TrustVisionCoreSDK.TrustVisionSdkProtocol {
+  @objc func initialize(baseUrl: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, xRequestId: Swift.String?, isForced: Swift.Bool, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc func initialize(accessKeyId: Swift.String, accessKeySecret: Swift.String, baseUrl: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, xRequestId: Swift.String?, isForced: Swift.Bool, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc func startFullFlow(config: TrustVisionCoreSDK.TVSDKConfig, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc func getCardTypes() -> [TrustVisionCoreSDK.TVCardType]
+  @objc func getSelfieCameraMode() -> TrustVisionCoreSDK.TVCameraOption
+  @objc func getLivenessOptions() -> [Swift.String]
+  @objc func getIdCardSanityCheckingEnable() -> Swift.Bool
+  @objc func getSelfieSanityCheckingEnable() -> Swift.Bool
+  @objc func getSupportTransaction() -> Swift.Bool
+  @objc func startTransaction(referenceId: Swift.String?, success: @escaping (Swift.String?) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc func endTransaction(success: @escaping () -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc func startIdCapturing(configuration: TrustVisionCoreSDK.TVIdCardConfiguration, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc func startSelfieCapturing(configuration: TrustVisionCoreSDK.TVSelfieConfiguration, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc func matchFace(image1Id: Swift.String, image2Id: Swift.String, success: @escaping (TrustVisionCoreSDK.TVCompareFacesResult) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc func downloadImage(imageId: Swift.String, success: @escaping (UIKit.UIImage?) -> Swift.Void, failure: @escaping (TrustVisionCoreSDK.TVError) -> Swift.Void)
+  @objc func pushServerLog(tag: Swift.String, event: Swift.String, log: [Swift.String : Any])
+}
+@objc public protocol TrustVisionSdkUiOnlyProtocol : TrustVisionCoreSDK.TrustVisionSdkProtocol {
+  @objc func initialize(clientSettingsJsonString: Swift.String?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc func initialize(clientSettings: TrustVisionAPI.TVClientSettingsResponse?, localizationFiles: [TrustVisionCoreSDK.TVLocalizationFile]?, languageCode: Swift.String?, theme: TrustVisionCoreSDK.TVTheme, enableDebuggingLog: Swift.Bool, success: @escaping () -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, onEvent: @escaping (_ event: TrustVisionCoreSDK.TVTrackingEvent) -> Swift.Void)
+  @objc func startIdCapturing(configuration: TrustVisionCoreSDK.TVIdCardConfiguration, framesRecordedCallback: @escaping TrustVisionCoreSDK.FramesRecordedCallback, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+  @objc func startSelfieCapturing(configuration: TrustVisionCoreSDK.TVSelfieConfiguration, framesRecordedCallback: @escaping TrustVisionCoreSDK.FramesRecordedCallback, success: @escaping (TrustVisionCoreSDK.TVDetectionResult) -> Swift.Void, failure: @escaping (_ error: TrustVisionCoreSDK.TVError) -> Swift.Void, cancellation: @escaping () -> Swift.Void) -> UIKit.UINavigationController
+}
+public protocol TrustVisionSdkImagePostProcessorProtocol {
+  func postProcessImage(image: UIKit.UIImage?) -> Swift.String?
+  func postProcessImage(imageData: Foundation.Data?) -> Swift.String?
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class TVIdCardFrameView : TrustVisionCoreSDK.TVBaseView {
+  @_Concurrency.MainActor(unsafe) public var frameImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var contentImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) override public func setupViews()
+  @_Concurrency.MainActor(unsafe) override public func setupLayouts()
+  @_Concurrency.MainActor(unsafe) public func setupView(landscapeFrameImage: UIKit.UIImage, verticalScale: Swift.Float, horizontalScale: Swift.Float)
+  @_Concurrency.MainActor(unsafe) public func updateFrameImage(landscapeFrameImage: UIKit.UIImage)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public struct TVAlertButtonStruct {
+  public var title: Swift.String
+  public var didPressCallback: (() -> Swift.Void)?
+}
+public protocol TVAlertViewProtocol : TrustVisionCoreSDK.TVBaseViewController {
+  init(image: UIKit.UIImage?, titleString: Swift.String?, labelString: Swift.String?, buttonsStructs: [TrustVisionCoreSDK.TVAlertButtonStruct], footerLabelSttring: Swift.String?, primaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme?, secondaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme?)
+  func updateFooterText(footerString: Swift.String?)
+}
+@objc @_Concurrency.MainActor(unsafe) open class TVAlertViewController : TrustVisionCoreSDK.TVBaseViewController, TrustVisionCoreSDK.TVAlertViewProtocol {
+  @_Concurrency.MainActor(unsafe) public var contentView: UIKit.UIView
+  @_Concurrency.MainActor(unsafe) public var imageView: UIKit.UIImageView
+  @_Concurrency.MainActor(unsafe) public var titleLabel: TrustVisionCoreSDK.TVUILabel
+  @_Concurrency.MainActor(unsafe) public var label: TrustVisionCoreSDK.TVUILabel
+  @_Concurrency.MainActor(unsafe) public var buttonsGroupView: UIKit.UIStackView
+  @_Concurrency.MainActor(unsafe) public var buttons: [UIKit.UIButton]
+  @_Concurrency.MainActor(unsafe) public var footerLabel: TrustVisionCoreSDK.TVUILabel
+  @_Concurrency.MainActor(unsafe) public var image: UIKit.UIImage?
+  @_Concurrency.MainActor(unsafe) public var titleString: Swift.String?
+  @_Concurrency.MainActor(unsafe) public var labelString: Swift.String?
+  @_Concurrency.MainActor(unsafe) public var buttonsStructs: [TrustVisionCoreSDK.TVAlertButtonStruct]
+  @_Concurrency.MainActor(unsafe) public var footerLabelString: Swift.String?
+  @_Concurrency.MainActor(unsafe) weak public var primaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme?
+  @_Concurrency.MainActor(unsafe) weak public var secondaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme?
+  @_Concurrency.MainActor(unsafe) required public init(image: UIKit.UIImage?, titleString: Swift.String?, labelString: Swift.String?, buttonsStructs: [TrustVisionCoreSDK.TVAlertButtonStruct], footerLabelSttring: Swift.String?, primaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme?, secondaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func updateViewConstraints()
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) public func updateFooterText(footerString: Swift.String?)
+  @objc deinit
+}
+public protocol TVBaseViewProtocol : TrustVisionCoreSDK.TVEventTrackingPageProtocol {
+  func showLoadingHUD(loadingImg: UIKit.UIImage)
+  func showLoadingHUD(text: Swift.String?, loadingImg: UIKit.UIImage)
+  func hideLoadingHUD()
+  var requiredOrientation: UIKit.UIInterfaceOrientation! { get set }
+  func finishCurrentStep(currentStep: TrustVisionCoreSDK.TVSDKConfig.Step, error: TrustVisionCoreSDK.TVError?)
+  func dismissAndCallback(_ error: TrustVisionCoreSDK.TVError)
+}
+public protocol CameraRelatedViewProtocol : TrustVisionCoreSDK.TVBaseViewProtocol {
+  func setupCamera(cameraConfig: TrustVisionCoreSDK.TVCameraConfig, callback: (() -> Swift.Void)?)
+  func startCamera()
+  func stopCamera()
+  func cameraCapture()
+  func switchToCamera(position: AVFoundation.AVCaptureDevice.Position)
+}
+public protocol TVBaseViewModelProtocol : AnyObject {
+  func viewDidLoad()
+  func viewDidDisappear()
+  func setupViewWithCurrentConfig()
+}
+public protocol CameraRelatedViewModelProtocol : TrustVisionCoreSDK.TVBaseViewModelProtocol {
+  func cameraViewUserDeniedPermission()
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class TVBaseView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var backgroundColors: [UIKit.UIColor]?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func updateConstraints()
+  @_Concurrency.MainActor(unsafe) open func setupViews()
+  @_Concurrency.MainActor(unsafe) open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) open class TVBaseUITableViewCell : UIKit.UITableViewCell {
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func updateConstraints()
+  @_Concurrency.MainActor(unsafe) open func setupViews()
+  @_Concurrency.MainActor(unsafe) open func setupLayouts()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class TVBaseUIButton : UIKit.UIButton {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func updateConstraints()
+  @_Concurrency.MainActor(unsafe) open func setupViews()
+  @_Concurrency.MainActor(unsafe) open func setupLayouts()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class TVBaseProgressView : UIKit.UIProgressView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func updateConstraints()
+  @_Concurrency.MainActor(unsafe) open func setupViews()
+  @_Concurrency.MainActor(unsafe) open func setupLayouts()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVCameraConfig {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class TVCameraView : TrustVisionCoreSDK.TVBaseView {
+  @objc override dynamic public func awakeFromNib()
+  @_Concurrency.MainActor(unsafe) override public func setupViews()
+  @_Concurrency.MainActor(unsafe) override public func setupLayouts()
+  @_Concurrency.MainActor(unsafe) public func getCroppedImageSize(rect: CoreGraphics.CGRect) -> CoreGraphics.CGRect
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension TrustVisionCoreSDK.TVCameraView : AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func captureOutput(_ output: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from connection: AVFoundation.AVCaptureConnection)
+}
+extension TrustVisionCoreSDK.TVCameraView : AVFoundation.AVCaptureMetadataOutputObjectsDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func metadataOutput(_ output: AVFoundation.AVCaptureMetadataOutput, didOutput metadataObjects: [AVFoundation.AVMetadataObject], from connection: AVFoundation.AVCaptureConnection)
+}
+@objc public class TVCardInfoResult : TrustVisionCoreSDK.TVBasePollingResult, Swift.Encodable {
+  @objc public class CardInfo : ObjectiveC.NSObject, Swift.Encodable {
+    @objc public var field: Swift.String?
+    @objc public var value: Swift.String?
+    @objc public var confidenceVerdict: Swift.String?
+    @objc public var confidenceScore: Swift.Float
+    @objc public init(field: Swift.String?, value: Swift.String?, confidenceVerdict: Swift.String?, confidenceScore: Swift.Float)
+    @objc deinit
+    public func encode(to encoder: Swift.Encoder) throws
+  }
+  @objc public var infos: [TrustVisionCoreSDK.TVCardInfoResult.CardInfo]
+  @objc public var croppedImage1Id: Swift.String?
+  @objc public var croppedImage2Id: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public init(requestId: Swift.String?, infos: [TrustVisionCoreSDK.TVCardInfoResult.CardInfo], croppedImage1Id: Swift.String?, croppedImage2Id: Swift.String?)
+  @objc public static func fromApiObject(cardInfoResponse: TrustVisionAPI.TVCardInfoResponse?) -> TrustVisionCoreSDK.TVCardInfoResult?
+  @objc deinit
+}
+@objc public class TVCompareFacesResult : TrustVisionCoreSDK.TVBasePollingResult, Swift.Encodable {
+  @objc public enum MatchResult : Swift.Int, Swift.CustomStringConvertible {
+    case matched
+    case unmatched
+    case unsure
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var score: Swift.Float
+  @objc public var matchResult: TrustVisionCoreSDK.TVCompareFacesResult.MatchResult
+  public init(requestId: Swift.String?, score: Swift.Float?, matchResult: TrustVisionCoreSDK.TVCompareFacesResult.MatchResult?)
+  public static func fromApiObject(conpareFacesResponse: TrustVisionAPI.TVCompareFacesResponse?) -> TrustVisionCoreSDK.TVCompareFacesResult?
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public func toDictionary() -> [Swift.String : Any]?
+  @objc deinit
+}
+public enum TVConfirmationButtonType {
+  case looksGood
+  case tryAgain
+  public static func == (a: TrustVisionCoreSDK.TVConfirmationButtonType, b: TrustVisionCoreSDK.TVConfirmationButtonType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol TVConfirmationButtonProtocol : UIKit.UIView {
+  init(image: UIKit.UIImage?, labelString: Swift.String?, onPress: (() -> Swift.Void)?)
+}
+@objc @_Concurrency.MainActor(unsafe) open class TVConfirmationButton : TrustVisionCoreSDK.TVBaseView, TrustVisionCoreSDK.TVConfirmationButtonProtocol {
+  @_Concurrency.MainActor(unsafe) public var button: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var label: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) required public init(image: UIKit.UIImage?, labelString: Swift.String?, onPress: (() -> Swift.Void)?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVDateFormatterManager {
+  public static func getDateFormatter(dateFormatterString: Swift.String, createDateFormatterFunc: (() -> Foundation.DateFormatter)? = nil) -> Foundation.DateFormatter
+  public static var iso8601: Foundation.DateFormatter {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class TVDetectIdCardTamperingDetailResult : ObjectiveC.NSObject, Swift.Encodable {
+  @objc public var name: Swift.String?
+  @objc public var score: Swift.Float
+  @objc public var verdict: Swift.String?
+  @objc public static func fromApiObject(detailResponse: TrustVisionAPI.TVIDCardTamperingDetail?) -> TrustVisionCoreSDK.TVDetectIdCardTamperingDetailResult?
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public class TVDetectIdCardTamperingResult : TrustVisionCoreSDK.TVBasePollingResult, Swift.Encodable {
+  @objc public var isGood: Swift.Bool
+  @objc public var score: Swift.Float
+  @objc public var details: [TrustVisionCoreSDK.TVDetectIdCardTamperingDetailResult]?
+  @objc public var error: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public init?(idCardTampering: TrustVisionAPI.TVIdCardTampering?, requestId: Swift.String?)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class TVGestureImage : ObjectiveC.NSObject, Swift.Encodable {
+  @objc public enum GestureType : Swift.Int, Swift.CustomStringConvertible, Swift.Encodable {
+    case up = 0
+    case down = 1
+    case left = 2
+    case right = 3
+    case frontal = 4
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var gestureType: TrustVisionCoreSDK.TVGestureImage.GestureType
+  @objc public var frontalImage: TrustVisionCoreSDK.TVImageClass?
+  @objc public var gestureImage: TrustVisionCoreSDK.TVImageClass?
+  public enum CodingKeys : Swift.String, Swift.CodingKey {
+    case gestureType
+    case frontalImage
+    case gestureImage
+    public init?(rawValue: Swift.String)
+    public init?(stringValue: Swift.String)
+    public init?(intValue: Swift.Int)
+    public typealias RawValue = Swift.String
+    public var intValue: Swift.Int? {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+    public var stringValue: Swift.String {
+      get
+    }
+  }
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public func toHashedFilesDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@objc public class TVLivenessVideoFrame : ObjectiveC.NSObject, Swift.Encodable {
+  public var base64: Swift.String
+  public var label: Swift.String?
+  public var frameIndexSinceRecording: Swift.Int
+  public init(base64: Swift.String, label: Swift.String?, frameIndexSinceRecording: Swift.Int)
+  @objc public func toHashedFilesDictionary() -> [Swift.String : Any]
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers @objc public class TVVideoFramesResult : ObjectiveC.NSObject, Swift.Encodable {
+  @objc public var localId: Swift.String?
+  @objc public var videoFrames: [TrustVisionCoreSDK.TVLivenessVideoFrame]
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers @objc public class TVCardQr : ObjectiveC.NSObject, Swift.Encodable {
+  @objc public var isRequired: Swift.Bool
+  @objc public var images: [TrustVisionCoreSDK.TVImageClass]
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public func toHashedFilesDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class TVDetectionResult : ObjectiveC.NSObject, Swift.Encodable {
+  @objc public var config: TrustVisionCoreSDK.TVSDKConfig?
+  @objc public var actionMode: TrustVisionCoreSDK.TVSDKConfig.ActionMode
+  @objc public var compareImageResult: TrustVisionCoreSDK.TVCompareFacesResult?
+  @objc public var cardType: TrustVisionCoreSDK.TVCardType?
+  @objc public var cardInfoResult: TrustVisionCoreSDK.TVCardInfoResult?
+  @objc public var idSanityResult: TrustVisionCoreSDK.TVSanityResult?
+  @objc public var idCardTamperingResult: TrustVisionCoreSDK.TVDetectIdCardTamperingResult?
+  @objc public var frontIdImage: TrustVisionCoreSDK.TVImageClass?
+  @objc public var backIdImage: TrustVisionCoreSDK.TVImageClass?
+  @objc public var frontIdQr: TrustVisionCoreSDK.TVCardQr?
+  @objc public var backIdQr: TrustVisionCoreSDK.TVCardQr?
+  @objc public var frontCardFrameBatchIds: [Swift.String]
+  @objc public var backCardFrameBatchIds: [Swift.String]
+  @objc public var livenessResult: TrustVisionCoreSDK.TVLivenessResult?
+  @objc public var selfieSanityResult: TrustVisionCoreSDK.TVSanityResult?
+  @objc public var selfieImages: [TrustVisionCoreSDK.TVGestureImage]
+  @objc public var livenessVideos: [Foundation.Data]
+  @objc public var livenessFrameBatchIds: [Swift.String]
+  @objc public var livenessMetadata: [Swift.String : Any]?
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public func toDictionary() -> [Swift.String : Any]?
+  @objc public func toHashedFilesDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@objc public class TVBasePollingResult : ObjectiveC.NSObject {
+  public var requestId: Swift.String?
+  public init(requestId: Swift.String?)
+  @objc deinit
+}
+public enum CompareImageResult {
+  case notMatched
+  case matched(confidence: Swift.Int)
+}
+@_hasMissingDesignatedInitializers @objc public class TVImageClass : ObjectiveC.NSObject, Swift.Encodable {
+  @objc public var label: Swift.String?
+  @objc public var rawImage: UIKit.UIImage? {
+    get
+  }
+  @objc public var imageId: Swift.String?
+  @objc public var encryptedHexString: Swift.String?
+  @objc public var metadata: [Swift.String : Any]?
+  @objc public var imageByteArray: Foundation.Data?
+  @objc public var encryptedImageHexString: Swift.String?
+  public enum CodingKeys : Swift.String, Swift.CodingKey {
+    case imageId
+    case rawImage
+    case encryptedImageHexString
+    case label
+    case metadata
+    public init?(rawValue: Swift.String)
+    public init?(stringValue: Swift.String)
+    public init?(intValue: Swift.Int)
+    public typealias RawValue = Swift.String
+    public var intValue: Swift.Int? {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+    public var stringValue: Swift.String {
+      get
+    }
+  }
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public func toHashedFilesDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVSelfieImage {
+  @objc deinit
+}
+public protocol TVDetectorProtocol : AnyObject {
+  var delegate: TrustVisionCoreSDK.TVDetectorDelegate? { get set }
+  func start()
+  func pauseTimeoutTimer(affectTimeoutTime: Swift.Bool)
+  func resumeTimeoutTimer()
+  func stop(callback: ((_ outputFileURL: Foundation.URL?) -> Swift.Void)?)
+  func getFrames() -> [TrustVisionCoreSDK.TVLivenessVideo.VideoFrame]
+  var didUpdateLastBatch: Swift.Bool { get }
+  func uploadLastBatch()
+  func getBatchIds() -> [Swift.String]
+}
+public protocol TVDetectorDelegate : AnyObject {
+  func startRecording()
+  func stopRecording(callback: ((_ outputFileURL: Foundation.URL?) -> Swift.Void)?)
+  func timeout()
+  func timeRemaining(remainedSeconds: Swift.Int)
+}
+@objc public enum TVErrorCategory : Swift.Int {
+  case server
+  case local
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class TVError : Foundation.NSError, Swift.Encodable {
+  @objc public var category: TrustVisionCoreSDK.TVErrorCategory {
+    get
+  }
+  @objc public var errorCode: Swift.String {
+    get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func sdkNotIntializedError() -> TrustVisionCoreSDK.TVError
+  @objc deinit
+}
+public enum TVLocalErrorCode {
+  case unidentified
+  case sdkNotInitialized
+  case sdkCanceled
+  case onClickVideoCall
+  case parametersNil
+  case noFace
+  case multipleFaces
+  case livenessWrongGesture
+  case livenessCheckFailed
+  case livenessCheckIncomplete
+  case faceTooSmall
+  case faceTooLarge
+  case faceOutOfBox
+  case faceOutOfBoxAndTooLarge
+  case cancel
+  case permissionMissing
+  case cameraError
+  case livenessDetectionError
+  case idDetectionError
+  case setupSDK
+  case verify
+  case noTrasactionSupport
+  case faceTrackingFailedBecauseOfTermination
+  case faceTrackingFailedBecauseOfTooManyWarnings
+  case faceTrackingWarned
+  case manyFramesWithoutFace
+  case idNoCardFront
+  case idNoCardBack
+  case idAngleError
+  case idCardTooSmall
+  case idIncomplete
+  case idWrongCardSideFront
+  case idWrongCardSideBack
+  case idGlare
+  case idBlur
+  case qrInvalid
+  case downloadModelFailed
+  case livenessTilt
+  case idTilt
+  public var error: TrustVisionCoreSDK.TVError {
+    get
+  }
+  public static func == (a: TrustVisionCoreSDK.TVLocalErrorCode, b: TrustVisionCoreSDK.TVLocalErrorCode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum TVFaceDetectionType : Swift.Int {
+  case none
+  case neutral
+  case blinkLeftEye
+  case blinkRightEye
+  case openMouth
+  case faceLeft
+  case faceRight
+  case faceUp
+  case faceDown
+  case smiling
+  case eyeClose
+  public var instruction: Swift.String {
+    get
+  }
+  public var soundURL: Foundation.URL? {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias TVFaceLandmarkCallback = (_ faceImage: UIKit.UIImage?, _ faceTrackingScore: CoreGraphics.CGFloat, _ boundingBox: [CoreGraphics.CGFloat], _ landmarks: [CoreGraphics.CGPoint], _ originalBoundingBox: [CoreGraphics.CGFloat], _ originalLandmarks: [CoreGraphics.CGPoint], _ timeInMilliSeconds: Swift.UInt64) -> Swift.Void
+public struct TVGestureScore {
+  public enum Result {
+    case under
+    case progress(_: CoreGraphics.CGFloat)
+    case inRange
+    case exceeded
+  }
+  public var score: CoreGraphics.CGFloat
+  public var bound: Swift.Range<CoreGraphics.CGFloat>
+  public var midScore: CoreGraphics.CGFloat
+  public var lowerRange: Swift.Range<CoreGraphics.CGFloat>
+  public var upperRange: Swift.Range<CoreGraphics.CGFloat>
+  public init(score: CoreGraphics.CGFloat, bound: Swift.Range<CoreGraphics.CGFloat>, midScore: CoreGraphics.CGFloat, lowerRange: Swift.Range<CoreGraphics.CGFloat>, upperRange: Swift.Range<CoreGraphics.CGFloat>)
+  public func calculateLowerProgress() -> TrustVisionCoreSDK.TVGestureScore.Result
+  public func calculateUpperProgress() -> TrustVisionCoreSDK.TVGestureScore.Result
+}
+public class TVIdBlurDetector {
+  public init()
+  public func checkBlur(imageBuffer: CoreVideo.CVImageBuffer) -> Swift.Double
+  public func processLaplacian(grayScale: [[Swift.Int]], width: Swift.Int, height: Swift.Int) -> (Swift.Double, Swift.Double)
+  @objc deinit
+}
+public class TVIdBlurDetector_v2 {
+  public init()
+  public func checkBlur(imageBuffer: CoreVideo.CVImageBuffer) -> Swift.Double
+  public func doScale(imageBuffer: CoreVideo.CVImageBuffer) -> CoreImage.CIImage?
+  public func doCheckBlur(ciImage: CoreImage.CIImage) -> Swift.Double
+  public func processLaplacian(grayScale: [[Swift.Int]], width: Swift.Int, height: Swift.Int) -> (Swift.Double, Swift.Double)
+  @objc deinit
+}
+@objc public class TVIdCapturingTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var instructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var qrInstructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation
+  @objc public var showTrademark: Swift.Bool
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc public var captureButtonImage: UIKit.UIImage
+  @objc public var captureButtonDisableImage: UIKit.UIImage
+  @objc public var closeButtonImage: UIKit.UIImage
+  @objc public var maskViewNeutralImage: UIKit.UIImage
+  @objc public var maskViewSuccessImage: UIKit.UIImage
+  @objc public var maskViewErrorImage: UIKit.UIImage
+  @objc public var qrInstructionBackgroundImage: UIKit.UIImage
+  @objc public var qrMaskViewNeutralImage: UIKit.UIImage
+  @objc public var qrMaskViewSuccessImage: UIKit.UIImage
+  @objc public var qrMaskViewErrorImage: UIKit.UIImage
+  @objc public var loadingImage: UIKit.UIImage
+  required public init(from decoder: Swift.Decoder) throws
+  public init(titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.titleLabelTheme, instructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.instructionLabelTheme, errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.errorLabelTheme, timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.timeoutLabelTheme, normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.normalLabelTheme, qrInstructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVLabelTheme(), closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation = TVThemeDefaultValues.closeButtonLocation, showTrademark: Swift.Bool = true, backgroundColor: UIKit.UIColor = UIColor.black.withAlphaComponent(0.5), captureButtonImage: UIKit.UIImage = UIImage.fromName("id_card_shoot_button")!, captureButtonDisableImage: UIKit.UIImage = UIImage.fromName("id_card_shoot_button")!, closeButtonImage: UIKit.UIImage = UIImage.fromName("btn_close_white")!, maskViewNeutralImage: UIKit.UIImage = UIImage.fromName("id_card_bg_front")!, maskViewSuccessImage: UIKit.UIImage = UIImage.fromName("id_card_bg_front")!, maskViewErrorImage: UIKit.UIImage = UIImage.fromName("id_card_error_bg")!, qrInstructionBackgroundImage: UIKit.UIImage = UIImage.fromName("bubble_view")!, qrMaskViewNeutralImage: UIKit.UIImage = UIImage.fromName("id_card_bg_qr")!, qrMaskViewSuccessImage: UIKit.UIImage = UIImage.fromName("id_card_bg_qr")!, qrMaskViewErrorImage: UIKit.UIImage = UIImage.fromName("id_card_bg_qr")!, loadingImage: UIKit.UIImage = UIImage.fromName("ic_loading")!)
+  public func clone() -> TrustVisionCoreSDK.TVIdCapturingTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVIdCapturingTheme
+  @objc deinit
+}
+@objc public class TVIdCardConfiguration : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var cardType: TrustVisionCoreSDK.TVCardType!
+  @objc public var cardSide: TrustVisionCoreSDK.TVCardSide
+  @objc public var isSoundEnable: Swift.Bool
+  @objc public var isSanityRequired: Swift.Bool
+  @objc public var isReadBothSide: Swift.Bool
+  @objc public var isIdCardTamperingDetectionEnable: Swift.Bool
+  @objc public var idTamperingLevel: Swift.String?
+  @objc public var skipConfirmScreen: Swift.Bool
+  @objc public var idCaptureOnlyMode: Swift.Bool
+  @objc public var isEnablePhotoGalleryPicker: Swift.Bool
+  @objc public var isEnableVideoCallButton: Swift.Bool
+  @objc public var isEnableScanQr: Swift.Bool
+  required public init(from decoder: Swift.Decoder) throws
+  @objc public init(cardType: TrustVisionCoreSDK.TVCardType, cardSide: TrustVisionCoreSDK.TVCardSide, isSoundEnable: Swift.Bool = true, isSanityRequired: Swift.Bool = false, isReadBothSide: Swift.Bool = false, isIdCardTamperingDetectionEnable: Swift.Bool = false, idTamperingLevel: Swift.String? = nil, skipConfirmScreen: Swift.Bool = false, idCaptureOnlyMode: Swift.Bool = false, isEnablePhotoGalleryPicker: Swift.Bool = false, isEnableVideoCallButton: Swift.Bool = false, isEnableScanQr: Swift.Bool = true)
+  @objc public static func dictToObj(dict: Foundation.NSDictionary) -> TrustVisionCoreSDK.TVIdCardConfiguration?
+  @objc deinit
+}
+@objc public class TVIdConfirmationTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation
+  @objc public var showTrademark: Swift.Bool
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc public var closeButtonImage: UIKit.UIImage
+  @objc public var confirmButtonImage: UIKit.UIImage
+  @objc public var retryButtonImage: UIKit.UIImage
+  @objc public var icQrResultSuccessImage: UIKit.UIImage
+  @objc public var icQrResultErrorImage: UIKit.UIImage
+  @objc public var maskViewImage: UIKit.UIImage
+  @objc public var loadingImage: UIKit.UIImage
+  required public init(from decoder: Swift.Decoder) throws
+  public init(titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.titleLabelTheme, errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.errorLabelTheme, normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.normalLabelTheme, closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation = TVThemeDefaultValues.closeButtonLocation, showTrademark: Swift.Bool = true, backgroundColor: UIKit.UIColor = TVThemeDefaultValues.backgroundColor, closeButtonImage: UIKit.UIImage = UIImage.fromName("btn_close_white")!, confirmButtonImage: UIKit.UIImage = UIImage.fromName("looks_good")!, retryButtonImage: UIKit.UIImage = UIImage.fromName("try_again")!, icQrResultSuccessImage: UIKit.UIImage = UIImage.fromName("qr_result_pass_ic")!, icQrResultErrorImage: UIKit.UIImage = UIImage.fromName("qr_result_failed_ic")!, maskViewImage: UIKit.UIImage = UIImage.fromName("id_bg_landscape_result")!, loadingImage: UIKit.UIImage = UIImage.fromName("ic_loading")!)
+  public func clone() -> TrustVisionCoreSDK.TVIdConfirmationTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVIdConfirmationTheme
+  @objc deinit
+}
+public protocol TVIdDetectionSdkSettingsProtocol {
+  var idDetection: TrustVisionCoreSDK.TVIdDetection { get }
+  var exifDataSettings: TrustVisionCoreSDK.TVIdExifDataSettings { get }
+  var blurCheck: TrustVisionCoreSDK.TVIdBlurCheck { get }
+  var glareCheck: TrustVisionCoreSDK.TVIdGlareCheck { get }
+  var autoCapture: TrustVisionCoreSDK.TVIdAutoCapture { get }
+  var disableCaptureButtonIfAlert: Swift.Bool { get }
+  var flowIntervalTimeMs: Swift.Int { get }
+  var limitTimeIdCapturing: TrustVisionCoreSDK.TVLimitTimeLivenessCheck { get }
+  var saveEncodedFrames: TrustVisionCoreSDK.TVSaveEncodedFrames { get }
+  var qrSettings: TrustVisionCoreSDK.TVIdQrSettings { get }
+}
+extension TrustVisionCoreSDK.TVIdDetectionSettings : TrustVisionCoreSDK.TVIdDetectionSdkSettingsProtocol {
+}
+public protocol TVIdDetectionSessionProtocol {
+  var currentIdSide: TrustVisionCoreSDK.TVCardSide { get }
+  var idCardFrontImage: TrustVisionCoreSDK.TVCardSideImage { get set }
+  var idCardBackImage: TrustVisionCoreSDK.TVCardSideImage { get set }
+  var cachedIdCardFrontImage: TrustVisionCoreSDK.TVCardSideImage { get set }
+  var idCardBlurScore: Swift.Double { get set }
+  var idFrontImages: [TrustVisionCoreSDK.TVIdCardImage] { get set }
+  var idBackImages: [TrustVisionCoreSDK.TVIdCardImage] { get set }
+  var idFrontContainQr: Swift.Bool { get set }
+  var idBackContainQr: Swift.Bool { get set }
+  var frontIdCapturingVideo: TrustVisionCoreSDK.TVLivenessVideo { get set }
+  var backIdCapturingVideo: TrustVisionCoreSDK.TVLivenessVideo { get set }
+}
+public protocol TVIdDetectionConfigProtocol {
+  var cardType: TrustVisionCoreSDK.TVCardType { get }
+  var skipConfirmScreen: Swift.Bool { get }
+  var isEnablePhotoGalleryPicker: Swift.Bool { get }
+  var isAbleSkipCardBackSide: Swift.Bool { get }
+  var isEnableVideoCallButton: Swift.Bool { get }
+  var isEnableScanQr: Swift.Bool { get }
+  var isEnableSound: Swift.Bool { get }
+}
+extension TrustVisionCoreSDK.TVSDKConfig : TrustVisionCoreSDK.TVIdDetectionConfigProtocol {
+}
+public protocol IDDetectionViewProtocol : UIKit.UIViewController, TrustVisionCoreSDK.CameraRelatedViewProtocol {
+  var viewModel: TrustVisionCoreSDK.IDDetectionViewModelProtocol? { get set }
+  func setupViewConfig(cardSide: TrustVisionCoreSDK.TVCardSide)
+  func navigateToNextStep()
+  func showQrAlert(footerLabel: Swift.String?)
+  func showWrongFormatQrAlert()
+  func updateTimeoutLabel(text: Swift.String?)
+  func dismissAlertView()
+  func updateUIForCapturingQR()
+  func updateAlertFooterText(_ text: Swift.String?)
+  func enableCaptureButton(isEnable: Swift.Bool)
+  func hideCaptureButton(isHide: Swift.Bool)
+  func hidePhotoGalleryButton(isHidden: Swift.Bool)
+  func hideSkipButton(isHidden: Swift.Bool)
+  func showTitleLabel(_ titleLabel: Swift.String?)
+  func setupCamera(cameraConfig: TrustVisionCoreSDK.TVCameraConfig, callback: (() -> Swift.Void)?)
+  func focusCameraOnIdFrame()
+  func getIdMaskFractionalFrame() -> (pixelFrame: CoreGraphics.CGRect, fractionFrame: CoreGraphics.CGRect)
+  func getCameraOutputInCardFrame(_ cameraOutput: CoreImage.CIImage) -> CoreImage.CIImage
+  func extractQr(ciImage: CoreImage.CIImage, pixelBuffer: CoreVideo.CVPixelBuffer)
+  func updateCardFrame(isError: Swift.Bool)
+  func updateErrorLabel(errorString: Swift.String?)
+  func updateUIQRFrame(isError: Swift.Bool, isSuccess: Swift.Bool)
+}
+public protocol IDDetectionViewModelProtocol : TrustVisionCoreSDK.CameraRelatedViewModelProtocol {
+  init(sdkSettings: TrustVisionCoreSDK.TVIdDetectionSdkSettingsProtocol, session: TrustVisionCoreSDK.TVIdDetectionSessionProtocol, userConfig: TrustVisionCoreSDK.TVIdDetectionConfigProtocol, viewBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol, serverLogManager: TrustVisionCoreSDK.TVServerLogManagerProtocol, idDetectorType: TrustVisionCoreSDK.TVIdDetectorProtocol.Type)
+  var view: (UIKit.UIViewController & TrustVisionCoreSDK.IDDetectionViewProtocol)? { get set }
+  var isCurrentViewForCaptureQR: Swift.Bool { get set }
+  var isStopTrackingWhenScanWrongQR: Swift.Bool { get }
+  func getCurrentStep() -> TrustVisionCoreSDK.TVSDKConfig.Step
+  func setupCamera()
+  func doneCapturingId()
+  func doneCapuringQr()
+  func cameraDidCaptureImage(image: UIKit.UIImage)
+  func qrAlertDismissed()
+  func handleQR(pixelBuffer: CoreVideo.CVPixelBuffer?, qrString: Swift.String)
+  func didChooseRetryScanningQr()
+  func captureButtonPressed()
+  func skipButtonPressed()
+  func frameFired(pixelBuffer: CoreVideo.CVPixelBuffer, croppedPixelBuffer: CoreVideo.CVPixelBuffer?, videoIndex: Swift.Int)
+  func navigateToNextStep()
+  func didPickImageFromGallery(_ uiimage: UIKit.UIImage)
+  func titleString() -> Swift.String?
+  func hideCaptureButton() -> Swift.Bool
+  func isCardInLandscape() -> Swift.Bool
+  var EXPECTED_IMAGE_DETECTION_PADDING_RATIO: CoreGraphics.CGFloat { get }
+  func setExpectedPaddingValue(vertical: Swift.Double, horizontal: Swift.Double)
+  func updateUIQRFrame(isError: Swift.Bool, isSuccess: Swift.Bool)
+}
+public protocol TVIdDetectorDelegate : TrustVisionCoreSDK.TVDetectorProtocol {
+}
+public typealias IdVerifySuccessStepBlock = (_ cardCiImage: CoreImage.CIImage) -> Swift.Void
+public typealias IdVerifyFailureStepBlock = (TrustVisionCoreSDK.TVError) -> Swift.Void
+public protocol TVIdDetectorProtocol : TrustVisionCoreSDK.TVDetectorProtocol {
+  static func create(sdkSettings: TrustVisionCoreSDK.TVIdDetectionSdkSettingsProtocol, userConfig: TrustVisionCoreSDK.TVIdDetectionConfigProtocol) -> TrustVisionCoreSDK.TVIdDetectorProtocol
+  var verticalPaddingThreshold: Swift.Double { get set }
+  var horizontalPaddingThreshold: Swift.Double { get set }
+  var theLeastBlurImage: UIKit.UIImage? { get }
+  var allCaptureIdImages: [TrustVisionCoreSDK.TVIdCardImage] { get }
+  var theLeastBlurImageScore: Swift.Double { get }
+  var isEnableBlurCheck: Swift.Bool { get }
+  func verify(imageBuffer: CoreVideo.CVImageBuffer, croppedPixelBuffer: CoreVideo.CVPixelBuffer?, frameIndexSinceRecording: Swift.Int, isBackSide: Swift.Bool, cardDetected: @escaping (_ cardLabel: Swift.String, _ containQR: Swift.Bool) -> Swift.Void, successBlock: @escaping TrustVisionCoreSDK.IdVerifySuccessStepBlock, failureBlock: @escaping TrustVisionCoreSDK.IdVerifyFailureStepBlock)
+  func runningTimeInSeconds() -> Swift.Float
+  func resetQrTrackingVideoFrameImages()
+  func updateEncryptedImage(_ imageObj: TrustVisionCoreSDK.TVImageClass)
+  func processCaptureIdImage(imageToCheckBlur: UIKit.UIImage, imageToUpload: UIKit.UIImage, checkBlurThreshold: Swift.Bool, callback: @escaping (_ isPassed: Swift.Bool) -> Swift.Void)
+  var didUpdateLastQrBatch: Swift.Bool { get }
+  func uploadLastQrBatch()
+  func getBatchIds(containQR: Swift.Bool) -> [Swift.String]
+}
+extension UIKit.UIImage {
+  public func toCIImage() -> CoreImage.CIImage?
+  public func toCGImage() -> CoreGraphics.CGImage?
+  public func toPixelData() -> [Swift.UInt8]?
+  public func toData(compressionQuality: CoreGraphics.CGFloat = 0.8) -> Foundation.Data?
+  public func toBase64(compressionQuality: CoreGraphics.CGFloat = 0.8) -> Swift.String
+  convenience public init?(base64: Swift.String)
+}
+extension CoreImage.CIImage {
+  public func toUIImage() -> UIKit.UIImage?
+  public func toPixelBuffer() -> CoreVideo.CVPixelBuffer?
+  @objc dynamic public func toJPEG(quality: CoreGraphics.CGFloat = 1.0) -> Foundation.Data?
+}
+extension UIKit.UIImage {
+  public func imageWithInsets(insetDimen: CoreGraphics.CGFloat) -> UIKit.UIImage
+  public func imageWithInset(insets: UIKit.UIEdgeInsets) -> UIKit.UIImage
+  public func fixedOrientation() -> UIKit.UIImage?
+  public func flipImageLeftRight() -> UIKit.UIImage?
+  public func flipImageUpDown() -> UIKit.UIImage?
+  public func rotateByCurrentOrientation(_ orientation: TrustVisionCoreSDK.TVCardType.CardOrientation) -> UIKit.UIImage
+  public func rotate(radians: Swift.Float) -> UIKit.UIImage
+}
+extension CoreGraphics.CGImage {
+  public static func imageFromPixelValues(pixelValues: Swift.UnsafeRawPointer?, width: Swift.Int, height: Swift.Int) -> CoreGraphics.CGImage?
+}
+extension CoreImage.CIImage {
+  public func convertToGrayScale_C() -> CoreImage.CIImage?
+}
+extension CoreImage.CIImage {
+  public func scale(dstWidth: Swift.Int, dstHeight: Swift.Int) -> CoreImage.CIImage?
+  public func resizeCG(size: CoreGraphics.CGSize) -> CoreImage.CIImage?
+}
+extension UIKit.UIImage {
+  public func cropImageFromFractionalFrame(frame: CoreGraphics.CGRect) -> UIKit.UIImage
+  public func cropIDImageFitWidthFromFractionalFrame(fractionalFrame: CoreGraphics.CGRect, extendedPercentage: CoreGraphics.CGFloat) -> UIKit.UIImage
+  public func cropIDImageHorizontalCenter(frame: CoreGraphics.CGRect, parentFrame: CoreGraphics.CGRect) -> UIKit.UIImage
+  public func cropIDImageVerticalCenter(frame: CoreGraphics.CGRect, parentFrame: CoreGraphics.CGRect) -> UIKit.UIImage
+  public func cropImageSquareVerticallyFitWidth() -> UIKit.UIImage
+  public func scaleImageKeepRatio(scaledToMaxWidth width: CoreGraphics.CGFloat, maxHeight height: CoreGraphics.CGFloat) -> UIKit.UIImage
+  public func scaleImage(toSize: CoreGraphics.CGSize) -> UIKit.UIImage
+  public func resizeImage(targetSize: CoreGraphics.CGSize) -> UIKit.UIImage
+  public func resizeImageLanczos(size: CoreGraphics.CGSize) -> UIKit.UIImage
+  public func resizeImageLinear(scale: Swift.Float) -> UIKit.UIImage
+  public func resize2(targetSize: CoreGraphics.CGSize) -> UIKit.UIImage
+}
+public protocol TVPassiveLivenessDetectionSdkSettingsProtocol {
+  var verticalChecking: TrustVisionCoreSDK.TVLivenesssVerticalCheck { get }
+  var exifDataSettings: TrustVisionCoreSDK.TVLivenessExifDataSettings { get }
+}
+extension TrustVisionCoreSDK.TVLivenessSetting : TrustVisionCoreSDK.TVPassiveLivenessDetectionSdkSettingsProtocol {
+}
+public protocol TVActiveLivenessDetectionSdkSettingsProtocol {
+  var faceTrackingSetting: TrustVisionCoreSDK.TVFaceTrackingSetting { get }
+  var limitTimeLivenessCheck: TrustVisionCoreSDK.TVLimitTimeLivenessCheck { get }
+  var recordVideo: TrustVisionCoreSDK.TVRecordVideo { get }
+  var saveEncodedFrames: TrustVisionCoreSDK.TVSaveEncodedFrames { get }
+  var terminateIfNoFace: TrustVisionCoreSDK.TVTerminateIfNoFace { get }
+  var flowIntervalTimeMs: Swift.Int { get }
+  var showGestureArrow: Swift.Bool { get }
+}
+extension TrustVisionCoreSDK.TVActiveLivenessSettings : TrustVisionCoreSDK.TVActiveLivenessDetectionSdkSettingsProtocol {
+}
+public protocol TVLivenessDetectionSessionProtocol {
+  var livenessResult: TrustVisionCoreSDK.TVLivenessResult? { get set }
+  var selfieImages: [TrustVisionCoreSDK.TVSelfieImage] { get set }
+  var selfieImage: TrustVisionCoreSDK.TVImageClass? { get }
+  var neutralFaceFrames: [TrustVisionCoreSDK.TVImageClass] { get }
+  var livenessVideo: TrustVisionCoreSDK.TVLivenessVideo { get }
+  var selfieSanityResult: TrustVisionCoreSDK.TVSanityResult? { get set }
+}
+public protocol TVLivenessDetectionConfigProtocol {
+  var selfieCameraMode: TrustVisionCoreSDK.TVCameraOption { get }
+  var isEnableSound: Swift.Bool { get }
+  var livenessMode: TrustVisionCoreSDK.TVLivenessOption { get }
+  var skipConfirmScreen: Swift.Bool { get }
+  var isEnableVideoCallButton: Swift.Bool { get }
+  func isEnableActiveLiveness(_ step: TrustVisionCoreSDK.TVSDKConfig.Step) -> Swift.Bool
+}
+extension TrustVisionCoreSDK.TVSDKConfig : TrustVisionCoreSDK.TVLivenessDetectionConfigProtocol {
+}
+public protocol TVLivenessDetectionViewProtocol : UIKit.UIViewController, TrustVisionCoreSDK.CameraRelatedViewProtocol {
+  var viewModel: TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol? { get set }
+  func createStepsViews(numberOfSteps: Swift.Int)
+  func setupViewConfig()
+  func addNotifications()
+  func removeNotifications()
+  func hideFlipCameraButton(isHidden: Swift.Bool)
+  func setLivenessStepsViewTransparent(isTransparent: Swift.Bool)
+  func hideCaptureButton(isHidden: Swift.Bool)
+  func hideCoolDownLabel(isHidden: Swift.Bool)
+  func hideCurrentStepIndicator(isHidden: Swift.Bool)
+  func setCooldownLabelText(text: Swift.String?)
+  func enableCaptureButton(isEnable: Swift.Bool)
+  func showGesturesView(isHidden: Swift.Bool, currentProgress: Swift.Float)
+  func setInstructionLabel(text: Swift.String?)
+  func setTimeoutLabel(text: Swift.String?, remainingTime: Swift.Int)
+  func showErrorString(errorString: Swift.String?)
+  func showGestureInstructionString(gestureString: Swift.String)
+  func animateCooldownView() -> Swift.Double
+  func stopCooldownAnimation()
+  func animateCooldownProgressIn(_ seconds: Swift.Float)
+  func updateUIForStep(previousImage: UIKit.UIImage?, stepIndex: Swift.Int, step: TrustVisionCoreSDK.TVFaceDetectionType?, isCurrentStep: Swift.Bool)
+  func animateToStepViewAtIndex(_ index: Swift.Int)
+  func applyStateToSelfieBgImageView(isDetected: Swift.Bool, nextStep: TrustVisionCoreSDK.TVFaceDetectionType?)
+  func startRecording(url: Foundation.URL)
+  func stopRecording(callback: ((Foundation.URL?) -> Swift.Void)?)
+  func DEBUG_updateSelfieImage(_ image: UIKit.UIImage?)
+  func DEBUG_updateLabel(text: Swift.String?)
+  func DEBUG_updateGestureScores(leftRightScore: Swift.Float, upDownScore: Swift.Float)
+}
+public protocol TVLivenessDetectorDelegate : AnyObject {
+  func startRecording()
+  func stopRecording(callback: ((_ outputFileURL: Foundation.URL?) -> Swift.Void)?)
+  func timeout()
+  func timeRemaining(remainedSeconds: Swift.Int)
+}
+public typealias MovedToNextStepBlock = (UIKit.UIImage?, TrustVisionCoreSDK.TVFaceDetectionType?) -> Swift.Void
+public typealias VerifySuccessStepBlock = (_ selfieImages: [TrustVisionCoreSDK.TVSelfieImage], _ livenessVideoUrl: Foundation.URL?, _ trackingframes: [TrustVisionCoreSDK.TVLivenessVideo.TrackingFrame], _ trackingVideoIds: [Swift.String], _ flowHasBeenTerminatedByFaceTrackingFailed: Swift.Bool) -> Swift.Void
+public typealias VerifyFailureStepBlock = (TrustVisionCoreSDK.TVImageClass?, TrustVisionCoreSDK.TVError) -> Swift.Void
+public protocol TVLivenessDetectionViewModelProtocol : TrustVisionCoreSDK.CameraRelatedViewModelProtocol {
+  init(passiveLivenessSdkSettings: TrustVisionCoreSDK.TVPassiveLivenessDetectionSdkSettingsProtocol, activeLivenessSdkSettings: TrustVisionCoreSDK.TVActiveLivenessDetectionSdkSettingsProtocol, session: TrustVisionCoreSDK.TVLivenessDetectionSessionProtocol, userConfig: TrustVisionCoreSDK.TVLivenessDetectionConfigProtocol, viewBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol, serverLogManager: TrustVisionCoreSDK.TVServerLogManagerProtocol, livenessDetectorType: TrustVisionCoreSDK.TVLivenessDetectorProtocol.Type)
+  var view: (UIKit.UIViewController & TrustVisionCoreSDK.TVLivenessDetectionViewProtocol)? { get set }
+  func appWillResignActive()
+  func stepAtIndex(_ index: Swift.Int) -> TrustVisionCoreSDK.TVFaceDetectionType?
+  func flipCameraButtonPressed()
+  func captureButtonPressed()
+  func cameraDidCaptureImage(image: UIKit.UIImage)
+  func frameFired(pixelBuffer: CoreVideo.CVPixelBuffer?, videoIndex: Swift.Int)
+}
+public protocol TVLivenessDetectorProtocol : TrustVisionCoreSDK.TVDetectorProtocol {
+  static func create(passiveLivenessSdkSettings: TrustVisionCoreSDK.TVPassiveLivenessDetectionSdkSettingsProtocol, activeLivenessSdkSettings: TrustVisionCoreSDK.TVActiveLivenessDetectionSdkSettingsProtocol, userConfig: TrustVisionCoreSDK.TVLivenessDetectionConfigProtocol) -> TrustVisionCoreSDK.TVLivenessDetectorProtocol
+  func stepAtIndex(_ index: Swift.Int) -> TrustVisionCoreSDK.TVFaceDetectionType?
+  func getCurrentStep() -> TrustVisionCoreSDK.TVFaceDetectionType?
+  func invalidateTimeoutTimer()
+  func progress() -> Swift.Float
+  func changeType(detectionType: TrustVisionCoreSDK.TVFaceDetectionType)
+  func setDetectionSuccessful()
+  func verify(faceDidFallInBox: Swift.Bool, imageBuffer: CoreVideo.CVImageBuffer, originalSize: CoreGraphics.CGSize, frameIndexSinceRecording: Swift.Int, landmarkBlock: @escaping ([CoreGraphics.CGPoint]) -> Swift.Void, lastStepDoneBlock: @escaping (_ callback: @escaping () -> Swift.Void) -> Swift.Void, onMovedToNextStep: @escaping TrustVisionCoreSDK.MovedToNextStepBlock, validFaceBlock: @escaping () -> Swift.Void, successBlock: @escaping TrustVisionCoreSDK.VerifySuccessStepBlock, failureBlock: @escaping TrustVisionCoreSDK.VerifyFailureStepBlock, debugCallback: @escaping TrustVisionCoreSDK.TVFaceLandmarkCallback, gestureScoreCallback: @escaping (_ isMatched: Swift.Bool, _ sergeiScore: CoreGraphics.CGFloat, _ upDownCond: CoreGraphics.CGFloat) -> Swift.Void)
+}
+open class TVLivenessDetectionViewModel : TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol {
+  weak public var view: (UIKit.UIViewController & TrustVisionCoreSDK.TVLivenessDetectionViewProtocol)?
+  public var passiveLivenessSdkSettings: TrustVisionCoreSDK.TVPassiveLivenessDetectionSdkSettingsProtocol
+  public var activeLivenessSdkSettings: TrustVisionCoreSDK.TVActiveLivenessDetectionSdkSettingsProtocol
+  public var session: TrustVisionCoreSDK.TVLivenessDetectionSessionProtocol
+  public var userConfig: TrustVisionCoreSDK.TVLivenessDetectionConfigProtocol
+  public var viewBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol
+  public var serverLogManager: TrustVisionCoreSDK.TVServerLogManagerProtocol
+  public var livenessDetectorType: TrustVisionCoreSDK.TVLivenessDetectorProtocol.Type
+  required public init(passiveLivenessSdkSettings: TrustVisionCoreSDK.TVPassiveLivenessDetectionSdkSettingsProtocol, activeLivenessSdkSettings: TrustVisionCoreSDK.TVActiveLivenessDetectionSdkSettingsProtocol, session: TrustVisionCoreSDK.TVLivenessDetectionSessionProtocol, userConfig: TrustVisionCoreSDK.TVLivenessDetectionConfigProtocol, viewBuilder: TrustVisionCoreSDK.TVViewControllerBuilderProtocol, serverLogManager: TrustVisionCoreSDK.TVServerLogManagerProtocol, livenessDetectorType: TrustVisionCoreSDK.TVLivenessDetectorProtocol.Type)
+  public var faceDidFallInBox: Swift.Bool
+  public var isTrackingPaused: Swift.Bool {
+    get
+    set
+  }
+  public var mode: TrustVisionCoreSDK.TVLivenessOption
+  public var livenessCurrentStepIndex: Swift.Int
+  public func cameraViewUserDeniedPermission()
+  public func viewDidLoad()
+  public func appWillResignActive()
+  public func viewDidDisappear()
+  open func setupViewWithCurrentConfig()
+  open func setupDetector()
+  public func stepAtIndex(_ index: Swift.Int) -> TrustVisionCoreSDK.TVFaceDetectionType?
+  public func getCurrentLivenessStep() -> TrustVisionCoreSDK.TVFaceDetectionType?
+  public func getCurrentProgress() -> Swift.Float
+  public func flipCameraButtonPressed()
+  public func captureButtonPressed()
+  public func cameraDidCaptureImage(image: UIKit.UIImage)
+  public func frameFired(pixelBuffer: CoreVideo.CVPixelBuffer?, videoIndex: Swift.Int)
+  open func setupViewConfig()
+  open func updateFaceDidFallInBoxToTrue()
+  open func onMoveToNextStep(image: UIKit.UIImage?, nextStep: TrustVisionCoreSDK.TVFaceDetectionType?)
+  open func setupUiWhenMoveToNextStep(previousImage: UIKit.UIImage, step: TrustVisionCoreSDK.TVFaceDetectionType?)
+  open func playSoundWeldone()
+  open func updateGestureScore(isMatched: Swift.Bool, leftRightScore: TrustVisionCoreSDK.TVGestureScore, upDownScore: TrustVisionCoreSDK.TVGestureScore)
+  open var shouldSendLogRemainingSeconds: Swift.Int {
+    get
+  }
+  open var shouldShowTextRemainingSeconds: Swift.Int {
+    get
+  }
+  open func timeRemaining(remainedSeconds: Swift.Int)
+  @objc deinit
+}
+extension TrustVisionCoreSDK.TVLivenessDetectionViewModel {
+  public func moveToNextStep(previousImage: UIKit.UIImage, step: TrustVisionCoreSDK.TVFaceDetectionType?)
+  public func checkAndShowGestureInstructionString(step: TrustVisionCoreSDK.TVFaceDetectionType?)
+}
+extension TrustVisionCoreSDK.TVLivenessDetectionViewModel : TrustVisionCoreSDK.TVDetectorDelegate {
+  public func startRecording()
+  public func stopRecording(callback: ((Foundation.URL?) -> Swift.Void)?)
+  public func timeout()
+}
+@_hasMissingDesignatedInitializers @objc public class TVLivenessResult : TrustVisionCoreSDK.TVBasePollingResult, Swift.Encodable {
+  @objc public var score: Swift.Float
+  @objc public var isLive: Swift.Bool
+  @objc public var verdict: Swift.String
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(isLive: Swift.Bool?, score: Swift.Float?, verdict: Swift.String?)
+  @objc public static func fromApiObject(apiLivenessResponse: TrustVisionAPI.TVVerifyLivenessResponse?) -> TrustVisionCoreSDK.TVLivenessResult?
+  @objc deinit
+}
+public class TVModelFile {
+  public init(encryptedFileName: Swift.String, decryptedFileName: Swift.String, url: Swift.String)
+  public func downloadModel(completion: @escaping (_ error: TrustVisionCoreSDK.TVError?) -> Swift.Void)
+  public func decryptModelFile(fileUrl: Foundation.URL, callback: (_ url: Swift.String) -> Swift.Void)
+  public func removeFile(_ path: Swift.String)
+  public func encryptedFileUrl() -> Swift.String
+  public func decryptedFileUrl() -> Swift.String
+  @objc deinit
+}
+@objc public enum TVCardSide : Swift.Int, Swift.Decodable, Swift.CustomStringConvertible {
+  case front = 0
+  case back = 1
+  public static func fromString(stringValue: Swift.String) -> TrustVisionCoreSDK.TVCardSide?
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class TVCardSideImage {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVIdCardImage {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVLivenessVideo {
+  @_hasMissingDesignatedInitializers public class TrackingFrame : Swift.Encodable {
+    @objc deinit
+    public func encode(to encoder: Swift.Encoder) throws
+  }
+  public class VideoFrame {
+    public init(label: Swift.String?, frameIndexSinceRecording: Swift.Int)
+    @objc deinit
+  }
+  @objc deinit
+}
+@objc public class TVQrPopupTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc public var titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var descriptionTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var primaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var secondaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var headerImage: UIKit.UIImage?
+  required public init(from decoder: Swift.Decoder) throws
+  public init(backgroundColor: UIKit.UIColor = .white, titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVLabelTheme(font: TVThemeDefaultValues.titleTextFont, textColor: UIColor(hex: 0x002F75, alpha: 0.6)), descriptionTheme: TrustVisionCoreSDK.TVLabelTheme = TVLabelTheme(textColor: UIColor(hex: 0x002F75, alpha: 0.6)), primaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme = TVLabelTheme(textColor: .white, backgroundColors: [UIColor(hex: 0x0276F1, alpha: 1.0)], cornerRadius: 8.0), secondaryButtonTheme: TrustVisionCoreSDK.TVLabelTheme = TVLabelTheme(textColor: UIColor(hex: 0x002F75, alpha: 0.6)), timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVLabelTheme(textColor: UIColor(hex: 0x002F75, alpha: 0.6)), headerImage: UIKit.UIImage? = UIImage.fromName("qr_prompt_img"))
+  public func clone() -> TrustVisionCoreSDK.TVQrPopupTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVQrPopupTheme
+  @objc deinit
+}
+@objc public class TVSanityResult : TrustVisionCoreSDK.TVBasePollingResult, Swift.Encodable {
+  @objc public var isGood: Swift.Bool
+  @objc public var score: Swift.Float
+  @objc public var error: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc public init?(sanity: TrustVisionAPI.TVSanity?, requestId: Swift.String?)
+  @objc deinit
+}
+@objc public class TVQrSdk : ObjectiveC.NSObject, Swift.Decodable, Swift.Encodable {
+  @objc public var exist: Swift.Bool
+  @objc public var type: TrustVisionAPI.TVQRType
+  @objc public var widthHeightRatio: Swift.Float
+  @objc public init(exist: Swift.Bool, type: TrustVisionAPI.TVQRType, widthHeightRatio: Swift.Float)
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+}
+@objc public class TVCardType : ObjectiveC.NSObject, Swift.Decodable, Swift.Encodable {
+  @objc public enum CardOrientation : Swift.Int, Swift.CustomStringConvertible, Swift.Encodable {
+    case landscape = 0
+    case portrait = 1
+    public static func fromString(inputString: Swift.String) -> TrustVisionCoreSDK.TVCardType.CardOrientation?
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var id: Swift.String
+  @objc public var name: Swift.String
+  @objc public var orientation: TrustVisionCoreSDK.TVCardType.CardOrientation
+  @objc public var hasBackSide: Swift.Bool
+  @objc public var frontQr: TrustVisionCoreSDK.TVQrSdk
+  @objc public var backQr: TrustVisionCoreSDK.TVQrSdk
+  @objc public init(id: Swift.String, name: Swift.String, orientation: TrustVisionCoreSDK.TVCardType.CardOrientation, hasBackSide: Swift.Bool, frontQr: TrustVisionCoreSDK.TVQrSdk? = nil, backQr: TrustVisionCoreSDK.TVQrSdk? = nil)
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+  @objc public static func dictToObj(dict: Foundation.NSDictionary) -> TrustVisionCoreSDK.TVCardType?
+  @objc public func toDictionary() -> [Swift.String : Any]?
+  @objc deinit
+}
+@objc public enum LivenessOption : Swift.Int, Swift.CustomStringConvertible {
+  case active = 0
+  case passive = 1
+  case hybrid = 2
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum CameraMode : Swift.Int, Swift.CustomStringConvertible {
+  case both = 0
+  case front = 1
+  case back = 2
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class TVSDKConfig : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public enum Step : Swift.Int, Swift.CustomStringConvertible {
+    case none = -1
+    case id_front = 0
+    case id_back = 1
+    case qr_front = 2
+    case qr_back = 3
+    case cardInfo = 4
+    case liveness = 5
+    case faceMatching = 6
+    case cardSanity = 7
+    case selfieSanity = 8
+    case idCardTampering = 9
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public enum ActionMode : Swift.Int, Swift.Decodable, Swift.CustomStringConvertible {
+    case faceMatching = 0
+    case full = 1
+    case liveness = 2
+    case extractIdInfo = 3
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var actionMode: TrustVisionCoreSDK.TVSDKConfig.ActionMode
+  @objc public var cardType: TrustVisionCoreSDK.TVCardType
+  @objc public var livenessMode: TrustVisionCoreSDK.TVLivenessOption
+  @objc public var isEnableSound: Swift.Bool
+  @objc public var isEnableVerifyMultipleFaces: Swift.Bool
+  @objc public var isEnableVerifyPortraitSanity: Swift.Bool
+  @objc public var isEnableVerifyIDSanity: Swift.Bool
+  @objc public var selfieCameraMode: TrustVisionCoreSDK.TVCameraOption
+  @objc public var isEnableDetectingIdCardTampering: Swift.Bool
+  @objc public var isAbleSkipCardBackSide: Swift.Bool
+  @objc public var idTamperingLevel: Swift.String?
+  @objc public var skipConfirmScreen: Swift.Bool
+  @objc public var idCaptureOnlyMode: Swift.Bool
+  @objc public var isEnablePhotoGalleryPicker: Swift.Bool
+  @objc public var isEnableVideoCallButton: Swift.Bool
+  @objc public var isEnableScanQr: Swift.Bool
+  required public init(from decoder: Swift.Decoder) throws
+  @objc public static func dictToObj(dict: Foundation.NSDictionary) -> TrustVisionCoreSDK.TVSDKConfig?
+  @objc public class func defaultConfig() -> TrustVisionCoreSDK.TVSDKConfig
+  public func isEnableActiveLiveness(_ step: TrustVisionCoreSDK.TVSDKConfig.Step) -> Swift.Bool
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVSdkConstants {
+  public static let bundleIdentifier: Swift.String
+  public struct TSLocalizedString {
+    public static var holdCamera: Swift.String {
+      get
+    }
+    public static var idDetectionProceedToBackside: Swift.String {
+      get
+    }
+    public static var idDetectionProceedToTakeSelfie: Swift.String {
+      get
+    }
+    public static var idDetectionFrontSide: Swift.String {
+      get
+    }
+    public static var idDetectionBackSide: Swift.String {
+      get
+    }
+    public static var idDetectionFrontSidePassport: Swift.String {
+      get
+    }
+    public static var idDetectionBackSidePassport: Swift.String {
+      get
+    }
+    public static var idDetectionSubFrontSide: Swift.String {
+      get
+    }
+    public static var idDetectionSubBackSide: Swift.String {
+      get
+    }
+    public static var idDetectionCaptureDescription: Swift.String {
+      get
+    }
+    public static var idDetectionConfirmDescription: Swift.String {
+      get
+    }
+    public static var qrScannerFrontSide: Swift.String {
+      get
+    }
+    public static var qrScannerBackSide: Swift.String {
+      get
+    }
+    public static var livenessDetectionNeutral: Swift.String {
+      get
+    }
+    public static var livenessDetectionLeftEye: Swift.String {
+      get
+    }
+    public static var livenessDetectionRightEye: Swift.String {
+      get
+    }
+    public static var livenessDetectionOpenMouth: Swift.String {
+      get
+    }
+    public static var livenessDetectionTurnLeft: Swift.String {
+      get
+    }
+    public static var livenessDetectionTurnRight: Swift.String {
+      get
+    }
+    public static var livenessDetectionTurnUp: Swift.String {
+      get
+    }
+    public static var livenessDetectionTurnDown: Swift.String {
+      get
+    }
+    public static var livenessDetectionSmiling: Swift.String {
+      get
+    }
+    public static var livenessDetectionEyeClose: Swift.String {
+      get
+    }
+    public static var livenessDetectionFailed: Swift.String {
+      get
+    }
+    public static var livenessConfirmation: Swift.String {
+      get
+    }
+    public static var livenessDetectionPrompt: Swift.String {
+      get
+    }
+    public static var livenessDetectionCaptureNow: Swift.String {
+      get
+    }
+    public static var verifiedNotMatched: Swift.String {
+      get
+    }
+    public static var notRecognizeFace: Swift.String {
+      get
+    }
+    public static var missingCameraPermission: Swift.String {
+      get
+    }
+    public static var setupCameraFailed: Swift.String {
+      get
+    }
+    public static var faceNotFound: Swift.String {
+      get
+    }
+    public static var multipleFaceDetected: Swift.String {
+      get
+    }
+    public static var faceTooSmall: Swift.String {
+      get
+    }
+    public static var faceTooLarge: Swift.String {
+      get
+    }
+    public static var faceOutOfBox: Swift.String {
+      get
+    }
+    public static var faceOutOfBoxAndTooLarge: Swift.String {
+      get
+    }
+    public static var noTransactionSupport: Swift.String {
+      get
+    }
+    public static var tryAgain: Swift.String {
+      get
+    }
+    public static var looksGood: Swift.String {
+      get
+    }
+    public static var idDetectionErrorWrongSideFront: Swift.String {
+      get
+    }
+    public static var idDetectionErrorWrongSideBack: Swift.String {
+      get
+    }
+    public static var idDetectionErrorNoCardFront: Swift.String {
+      get
+    }
+    public static var idDetectionErrorNoCardBack: Swift.String {
+      get
+    }
+    public static var idDetectionErrorWrongAngles: Swift.String {
+      get
+    }
+    public static var idDetectionErrorTooSmall: Swift.String {
+      get
+    }
+    public static var idDetectionErrorIncomplete: Swift.String {
+      get
+    }
+    public static var idDetectionErrorGlare: Swift.String {
+      get
+    }
+    public static var idDetectionErrorBlur: Swift.String {
+      get
+    }
+    public static var idDetectionErrorTilt: Swift.String {
+      get
+    }
+    public static var idDetectionQrGuidelinePopup: Swift.String {
+      get
+    }
+    public static var idDetectionQrWrongFormatPopupTitle: Swift.String {
+      get
+    }
+    public static var idDetectionQrWrongFormatPopupBody: Swift.String {
+      get
+    }
+    public static var idDetectionQrCountdown: Swift.String {
+      get
+    }
+    public static var idDetectionQrStartButton: Swift.String {
+      get
+    }
+    public static var idDetectionQrRetryButton: Swift.String {
+      get
+    }
+    public static var idDetectionQrRetryWrongFormatButton: Swift.String {
+      get
+    }
+    public static var idDetectionQrIgnoreButton: Swift.String {
+      get
+    }
+    public static var idDetectionQrTitle: Swift.String {
+      get
+    }
+    public static var idDetectionQrDescription: Swift.String {
+      get
+    }
+    public static var idDetectionConfirmQrSuccess: Swift.String {
+      get
+    }
+    public static var idDetectionConfirmQrFailed: Swift.String {
+      get
+    }
+    public static var qrInvalid: Swift.String {
+      get
+    }
+    public static var livenessErrorNoFaceTooLong: Swift.String {
+      get
+    }
+    public static var livenessErrorTooFast: Swift.String {
+      get
+    }
+    public static var livenessErrorTerminatedByFaceTrackingTermination: Swift.String {
+      get
+    }
+    public static var livenessErrorTerminatedByFaceTrackingWarning: Swift.String {
+      get
+    }
+    public static var livenessErrorTimeoutWarning: Swift.String {
+      get
+    }
+    public static var livenessErrorTimeout: Swift.String {
+      get
+    }
+    public static var livenessErrorTilt: Swift.String {
+      get
+    }
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TVSdkSettings : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  public init(activeLivenessSetting: TrustVisionCoreSDK.TVActiveLivenessSettings?, idDetectionSetting: TrustVisionCoreSDK.TVIdDetectionSettings?, livenessSetting: TrustVisionCoreSDK.TVLivenessSetting?, serverLogSetting: TrustVisionCoreSDK.TVServerLogSettings?)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TVServerLogSettings : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  public init(enable: Swift.Bool)
+  @objc deinit
+}
+@objc public class TVLivenessExifDataSettings : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool)
+  @objc deinit
+}
+@objc public class TVLivenesssVerticalCheck : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, thresholdInDegree: Swift.Int)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TVLivenessSetting : ObjectiveC.NSObject {
+  public var verticalChecking: TrustVisionCoreSDK.TVLivenesssVerticalCheck
+  public var exifDataSettings: TrustVisionCoreSDK.TVLivenessExifDataSettings
+  @objc override dynamic public init()
+  public init(verticalChecking: TrustVisionCoreSDK.TVLivenesssVerticalCheck?, exifDataSettings: TrustVisionCoreSDK.TVLivenessExifDataSettings?)
+  @objc deinit
+}
+@objc public class TVIdDetection : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool)
+  @objc deinit
+}
+@objc public class TVIdExifDataSettings : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool)
+  @objc deinit
+}
+@objc public class TVIdBlurCheck : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, threshold: Swift.Double)
+  @objc deinit
+}
+@objc public class TVIdGlareCheck : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, threshold: Swift.Double)
+  @objc deinit
+}
+@objc public class TVIdAutoCapture : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, showCaptureButton: Swift.Bool, waitForBestImageTimeMs: Swift.Int)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TVActiveLivenessSettings : ObjectiveC.NSObject {
+  public var faceTrackingSetting: TrustVisionCoreSDK.TVFaceTrackingSetting
+  public var limitTimeLivenessCheck: TrustVisionCoreSDK.TVLimitTimeLivenessCheck
+  public var recordVideo: TrustVisionCoreSDK.TVRecordVideo
+  public var saveEncodedFrames: TrustVisionCoreSDK.TVSaveEncodedFrames
+  public var terminateIfNoFace: TrustVisionCoreSDK.TVTerminateIfNoFace
+  public var flowIntervalTimeMs: Swift.Int
+  public var showGestureArrow: Swift.Bool
+  @objc override dynamic public init()
+  public init(faceTrackingSetting: TrustVisionCoreSDK.TVFaceTrackingSetting?, limitTimeLivenessCheck: TrustVisionCoreSDK.TVLimitTimeLivenessCheck?, recordVideo: TrustVisionCoreSDK.TVRecordVideo?, saveEncodedFrames: TrustVisionCoreSDK.TVSaveEncodedFrames?, terminateIfNoFace: TrustVisionCoreSDK.TVTerminateIfNoFace?, flowIntervalTimeMs: Swift.Int, showGestureArrow: Swift.Bool)
+  @objc deinit
+}
+@objc public class TVIdQrSettings : ObjectiveC.NSObject {
+  public var enable: Swift.Bool
+  public var limitTimeSecond: Swift.Int
+  public init(limitTimeSecond: Swift.Int, enable: Swift.Bool)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TVIdDetectionSettings : ObjectiveC.NSObject {
+  public var idDetection: TrustVisionCoreSDK.TVIdDetection
+  public var exifDataSettings: TrustVisionCoreSDK.TVIdExifDataSettings
+  public var blurCheck: TrustVisionCoreSDK.TVIdBlurCheck
+  public var glareCheck: TrustVisionCoreSDK.TVIdGlareCheck
+  public var autoCapture: TrustVisionCoreSDK.TVIdAutoCapture
+  public var disableCaptureButtonIfAlert: Swift.Bool
+  public var flowIntervalTimeMs: Swift.Int
+  public var limitTimeIdCapturing: TrustVisionCoreSDK.TVLimitTimeLivenessCheck
+  public var saveEncodedFrames: TrustVisionCoreSDK.TVSaveEncodedFrames
+  public var qrSettings: TrustVisionCoreSDK.TVIdQrSettings
+  @objc override dynamic public init()
+  public init(idDetection: TrustVisionCoreSDK.TVIdDetection?, exifDataSettings: TrustVisionCoreSDK.TVIdExifDataSettings?, blurCheck: TrustVisionCoreSDK.TVIdBlurCheck?, glareCheck: TrustVisionCoreSDK.TVIdGlareCheck?, autoCapture: TrustVisionCoreSDK.TVIdAutoCapture?, disableCaptureButtonIfAlert: Swift.Bool, flowIntervalTimeMs: Swift.Int, limitTimeIdCapturing: TrustVisionCoreSDK.TVLimitTimeLivenessCheck?, saveEncodedFrames: TrustVisionCoreSDK.TVSaveEncodedFrames?, qrSettings: TrustVisionCoreSDK.TVIdQrSettings?)
+  @objc deinit
+}
+@objc public class TVTerminateIfNoFace : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, maxInvalidFrames: Swift.Int, maxIntervalTimeMs: Swift.Int)
+  @objc deinit
+}
+@objc public class TVLimitTimeLivenessCheck : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, livenessCheckTimeoutSecond: Swift.Int)
+  @objc deinit
+}
+@objc public class TVRecordVideo : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool)
+  @objc deinit
+}
+@objc public class TVSaveEncodedFrames : ObjectiveC.NSObject {
+  public init(enable: Swift.Bool, framesIntervalMs: Swift.Int, enableLogging: Swift.Bool, framesBatchLen: Swift.Int)
+  @objc deinit
+}
+@objc public class TVFaceTrackingSetting : ObjectiveC.NSObject {
+  public enum Method {
+    case allFlow
+    case eachGesture
+    public static func == (a: TrustVisionCoreSDK.TVFaceTrackingSetting.Method, b: TrustVisionCoreSDK.TVFaceTrackingSetting.Method) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public init(enable: Swift.Bool, maxWarningTime: Swift.Int, terminateThreshold: Swift.Float, warningThrehold: Swift.Float, method: TrustVisionCoreSDK.TVFaceTrackingSetting.Method)
+  @objc deinit
+}
+@objc public class TVSelfieCapturingTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var instructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var showTrademark: Swift.Bool
+  @objc public var closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc public var captureButtonImage: UIKit.UIImage
+  @objc public var captureButtonDisableImage: UIKit.UIImage
+  @objc public var switchCameraSideImage: UIKit.UIImage
+  @objc public var closeButtonImage: UIKit.UIImage
+  @objc public var maskViewNeutralImage: UIKit.UIImage
+  @objc public var maskViewSuccessImage: UIKit.UIImage
+  @objc public var maskViewErrorImage: UIKit.UIImage
+  @objc public var progressTheme: TrustVisionCoreSDK.TVSelfieProgressTheme
+  @objc public var gestureTheme: TrustVisionCoreSDK.TVSelfieGestureTheme
+  @objc public var loadingImage: UIKit.UIImage
+  required public init(from decoder: Swift.Decoder) throws
+  public init(titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.titleLabelTheme, instructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.instructionLabelTheme, errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.errorLabelTheme, timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.timeoutLabelTheme, normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.normalLabelTheme, showTrademark: Swift.Bool = true, closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation = TVThemeDefaultValues.closeButtonLocation, backgroundColor: UIKit.UIColor = TVThemeDefaultValues.backgroundColor, finishedGestureBackgroundImage: UIKit.UIImage = UIImage.fromName("id_card_shoot_button")!, captureButtonImage: UIKit.UIImage = UIImage.fromName("id_card_shoot_button")!, captureButtonDisableImage: UIKit.UIImage = UIImage.fromName("id_card_shoot_button")!, closeButtonImage: UIKit.UIImage = UIImage.fromName("btn_close_white")!, switchCameraSideImage: UIKit.UIImage = UIImage.fromName("ic_flip_camera")!, maskViewNeutralImage: UIKit.UIImage = UIImage.fromName("selfie_bg_no_sticks")!, maskViewSuccessImage: UIKit.UIImage = UIImage.fromName("selfie_bg_no_sticks")!, maskViewErrorImage: UIKit.UIImage = UIImage.fromName("selfie_bg_no_sticks_red")!, currentStepFocusImage: UIKit.UIImage = UIImage.fromName("liveness_focus")!, progressTheme: TrustVisionCoreSDK.TVSelfieProgressTheme = TVSelfieProgressTheme(), gestureTheme: TrustVisionCoreSDK.TVSelfieGestureTheme = TVSelfieGestureTheme(), loadingImage: UIKit.UIImage = UIImage.fromName("ic_loading")!)
+  public func clone() -> TrustVisionCoreSDK.TVSelfieCapturingTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVSelfieCapturingTheme
+  @objc deinit
+}
+@objc public class TVSelfieProgressTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var isHidden: Swift.Bool
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc public var progressColor: UIKit.UIColor
+  required public init(from decoder: Swift.Decoder) throws
+  public init(isHidden: Swift.Bool = false, backgroundColor: UIKit.UIColor = UIColor(hex: 0xe4e7eb, alpha: 1.0), progressColor: UIKit.UIColor = UIColor(hex: 0x5ab1df, alpha: 1.0))
+  public func clone() -> TrustVisionCoreSDK.TVSelfieProgressTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVSelfieProgressTheme
+  @objc deinit
+}
+@objc public class TVSelfieGestureTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var isHidden: Swift.Bool
+  @objc public var turnLeftActiveImage: UIKit.UIImage
+  @objc public var turnRightActiveImage: UIKit.UIImage
+  @objc public var turnUpActiveImage: UIKit.UIImage
+  @objc public var turnDownActiveImage: UIKit.UIImage
+  @objc public var lookStraightActiveImage: UIKit.UIImage
+  @objc public var turnLeftInactiveImage: UIKit.UIImage
+  @objc public var turnRightInactiveImage: UIKit.UIImage
+  @objc public var turnUpInactiveImage: UIKit.UIImage
+  @objc public var turnDownInactiveImage: UIKit.UIImage
+  @objc public var lookStraightInactiveImage: UIKit.UIImage
+  @objc public var finishedGestureBackgroundImage: UIKit.UIImage
+  @objc public var currentStepFocusImage: UIKit.UIImage
+  required public init(from decoder: Swift.Decoder) throws
+  public init(isHidden: Swift.Bool = false, turnLeftActiveImage: UIKit.UIImage = UIImage.fromName("liveness_left")!, turnRightActiveImage: UIKit.UIImage = UIImage.fromName("liveness_right")!, turnUpActiveImage: UIKit.UIImage = UIImage.fromName("liveness_up")!, turnDownActiveImage: UIKit.UIImage = UIImage.fromName("liveness_down")!, lookStraightActiveImage: UIKit.UIImage = UIImage.fromName("liveness_opposite")!, turnLeftInactiveImage: UIKit.UIImage = UIImage.fromName("liveness_inactive_left")!, turnRightInactiveImage: UIKit.UIImage = UIImage.fromName("liveness_inactive_right")!, turnUpInactiveImage: UIKit.UIImage = UIImage.fromName("liveness_inactive_up")!, turnDownInactiveImage: UIKit.UIImage = UIImage.fromName("liveness_inactive_down")!, lookStraightInactiveImage: UIKit.UIImage = UIImage.fromName("liveness_inactive_opposite")!, finishedGestureBackgroundImage: UIKit.UIImage = UIImage.fromName("liveness_mask_step_completed")!, currentStepFocusImage: UIKit.UIImage = UIImage.fromName("liveness_focus")!)
+  public func clone() -> TrustVisionCoreSDK.TVSelfieGestureTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVSelfieGestureTheme
+  @objc deinit
+}
+@objc public enum TVLivenessOption : Swift.Int, Swift.Decodable {
+  case active
+  case passive
+  case hybrid
+  public static func fromString(stringValue: Swift.String) -> TrustVisionCoreSDK.TVLivenessOption?
+  public func toString() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum TVCameraOption : Swift.Int, Swift.Decodable {
+  case front
+  case back
+  case both
+  public static func fromString(stringValue: Swift.String) -> TrustVisionCoreSDK.TVCameraOption?
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension TrustVisionAPI.TVEnumParser {
+  public static func TVCameraOption(stringValue: Swift.String) -> TrustVisionCoreSDK.TVCameraOption
+  public static func TVLivenessOption(stringValue: Swift.String) -> TrustVisionCoreSDK.TVLivenessOption
+}
+@objc public class TVSelfieConfiguration : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var cameraOption: TrustVisionCoreSDK.TVCameraOption
+  @objc public var isSoundEnable: Swift.Bool
+  @objc public var isSanityRequired: Swift.Bool
+  @objc public var livenessMode: TrustVisionCoreSDK.TVLivenessOption
+  @objc public var skipConfirmScreen: Swift.Bool
+  @objc public var isEnableVideoCallButton: Swift.Bool
+  required public init(from decoder: Swift.Decoder) throws
+  @objc public init(cameraOption: TrustVisionCoreSDK.TVCameraOption, isSoundEnable: Swift.Bool = true, isSanityRequired: Swift.Bool = false, livenessMode: TrustVisionCoreSDK.TVLivenessOption, skipConfirmScreen: Swift.Bool = false, isEnableVideoCallButton: Swift.Bool = false)
+  @objc public static func dictToObj(dict: Foundation.NSDictionary) -> TrustVisionCoreSDK.TVSelfieConfiguration?
+  @objc deinit
+}
+@objc public class TVSelfieConfirmationTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc public var titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme
+  @objc public var closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation
+  @objc public var showTrademark: Swift.Bool
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc public var closeButtonImage: UIKit.UIImage
+  @objc public var maskViewImage: UIKit.UIImage
+  @objc public var loadingImage: UIKit.UIImage
+  required public init(from decoder: Swift.Decoder) throws
+  public init(titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.titleLabelTheme, normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme = TVThemeDefaultValues.normalLabelTheme, closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation = TVThemeDefaultValues.closeButtonLocation, showTrademark: Swift.Bool = true, backgroundColor: UIKit.UIColor = TVThemeDefaultValues.backgroundColor, closeButtonImage: UIKit.UIImage = UIImage.fromName("btn_close_white")!, maskViewImage: UIKit.UIImage = UIImage.fromName("self_result_bg")!, loadingImage: UIKit.UIImage = UIImage.fromName("ic_loading")!)
+  public func clone() -> TrustVisionCoreSDK.TVSelfieConfirmationTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVSelfieConfirmationTheme
+  @objc deinit
+}
+public protocol TVSelfieTimeoutViewProtocol : UIKit.UIView {
+  func getStickCount() -> Swift.Int
+  func clearView()
+  func draw()
+  func animateProgress(seconds: Swift.Float)
+  func stop()
+  func drawProgressCircle(percentage: Swift.Float)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class TVSelfieTimeoutView : UIKit.UIView, TrustVisionCoreSDK.TVSelfieTimeoutViewProtocol {
+  @_Concurrency.MainActor(unsafe) open var stickCount: Swift.Int {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var mainCircleColor: UIKit.UIColor
+  @_Concurrency.MainActor(unsafe) open var lineWidth: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var progressColor: UIKit.UIColor
+  @_Concurrency.MainActor(unsafe) open var radius: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var startAngle: CoreGraphics.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var timer: Foundation.Timer?
+  @_Concurrency.MainActor(unsafe) public var currentStickCount: Swift.Int
+  @_Concurrency.MainActor(unsafe) public func getStickCount() -> Swift.Int
+  @_Concurrency.MainActor(unsafe) public func stop()
+  @_Concurrency.MainActor(unsafe) public func draw()
+  @_Concurrency.MainActor(unsafe) open func animateProgress(seconds: Swift.Float)
+  @_Concurrency.MainActor(unsafe) public func startTimer(timeInterval: Swift.Float)
+  @_Concurrency.MainActor(unsafe) public func clearView()
+  @_Concurrency.MainActor(unsafe) public func drawProgress(percentage: Swift.Float)
+  @_Concurrency.MainActor(unsafe) open func drawMainCircle()
+  @_Concurrency.MainActor(unsafe) public func drawCircle(strokeColor: UIKit.UIColor, lineWidth: CoreGraphics.CGFloat = 1.0) -> QuartzCore.CAShapeLayer
+  @_Concurrency.MainActor(unsafe) open func drawProgressCircle(percentage: Swift.Float)
+  @_Concurrency.MainActor(unsafe) public func drawStick(idx: Swift.Int, strokeStart: CoreGraphics.CGFloat, strokeEnd: CoreGraphics.CGFloat, strokeColor: UIKit.UIColor, removeLater: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public protocol TVServerLogManagerProtocol {
+  func log(tag: TrustVisionCoreSDK.TVServerLogTag, event: TrustVisionCoreSDK.TVServerLogEvent, log: [Swift.String : Any]?)
+}
+public enum TVServerLogTag {
+  case selfie
+  case id(_: TrustVisionCoreSDK.TVCardSide?)
+  case other(_: Swift.String)
+}
+public enum TVServerLogApiStatus : Swift.String, Swift.Encodable {
+  case success
+  case failure
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers public class TVApiLog : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers public class TVServerLogFile : TrustVisionCoreSDK.TVApiLog {
+  @objc deinit
+}
+public enum TVServerLogEvent {
+  case userActivity(_: Swift.String?, _: Swift.Int?)
+  case apiUpload(_: TrustVisionCoreSDK.TVServerLogFile)
+  case apiSubmit(_: Swift.String, _: TrustVisionCoreSDK.TVApiLog)
+  case apiUploadRetry(_: TrustVisionCoreSDK.TVServerLogFile)
+  case apiSubmitRetry(_: Swift.String, _: TrustVisionCoreSDK.TVApiLog)
+  case sdkUi(_: Swift.String?)
+  case error(_: Swift.String, _: Swift.String)
+  case other(_: Swift.String)
+}
+public protocol TVComponentThemeProtocol {
+  associatedtype ObjectType = Self
+  func clone() -> Self.ObjectType
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc open class TVTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  @objc open var idCapturingTheme: TrustVisionCoreSDK.TVIdCapturingTheme
+  @objc open var idConfirmationTheme: TrustVisionCoreSDK.TVIdConfirmationTheme
+  @objc open var selfieCapturingTheme: TrustVisionCoreSDK.TVSelfieCapturingTheme
+  @objc open var selfieConfirmationTheme: TrustVisionCoreSDK.TVSelfieConfirmationTheme
+  @objc open var qrGuidelinePopupTheme: TrustVisionCoreSDK.TVQrPopupTheme
+  @objc open var qrRetryPopupTheme: TrustVisionCoreSDK.TVQrPopupTheme
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  @objc public static func dictToObj(dict: Foundation.NSDictionary) -> TrustVisionCoreSDK.TVTheme?
+  public func clone() -> TrustVisionCoreSDK.TVTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVTheme
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class TVLabelTheme : ObjectiveC.NSObject, Swift.Decodable, TrustVisionCoreSDK.TVComponentThemeProtocol {
+  public var font: UIKit.UIFont
+  public var textColor: UIKit.UIColor
+  public var textGravity: UIKit.NSTextAlignment
+  public var backgroundColors: [UIKit.UIColor]
+  public var isBackgroundGradientHorizontal: Swift.Bool
+  public var cornerRadius: CoreGraphics.CGFloat
+  public var isHidden: Swift.Bool
+  public var borderWidth: CoreGraphics.CGFloat
+  public var borderColor: UIKit.UIColor
+  public var paddingHorizontal: CoreGraphics.CGFloat
+  public var paddingVertical: CoreGraphics.CGFloat
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override dynamic public init()
+  public init(font: UIKit.UIFont = TVThemeDefaultValues.normalTextFont, textColor: UIKit.UIColor = TVThemeDefaultValues.textColor, textGravity: UIKit.NSTextAlignment = .center, backgroundColors: [UIKit.UIColor] = [], isBackgroundGradientHorizontal: Swift.Bool = true, cornerRadius: CoreGraphics.CGFloat = 0.0, isHidden: Swift.Bool = false, borderWidth: CoreGraphics.CGFloat = 0, borderColor: UIKit.UIColor = .clear, paddingHorizontal: CoreGraphics.CGFloat = 0.0, paddingVertical: CoreGraphics.CGFloat = 0.0)
+  public func applyForLabel(_ label: TrustVisionCoreSDK.TVUILabel, numberOfLines: Swift.Int)
+  @objc public static func dictToObj(dict: Foundation.NSDictionary) -> TrustVisionCoreSDK.TVLabelTheme?
+  public func clone() -> TrustVisionCoreSDK.TVLabelTheme
+  public typealias ObjectType = TrustVisionCoreSDK.TVLabelTheme
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVThemeHelper {
+  public static var currentTheme: TrustVisionCoreSDK.TVTheme {
+    get
+    set
+  }
+  public static func setButtonEnability(button: UIKit.UIButton, isEnabled: Swift.Bool)
+  public static func applyCaptureButtonConstraintLayoutFor(button: UIKit.UIButton)
+  @objc deinit
+}
+extension UIKit.UIImage {
+  public static func fromName(_ name: Swift.String) -> UIKit.UIImage?
+}
+extension UIKit.UIImageView {
+  @_Concurrency.MainActor(unsafe) public func setImageColor(color: UIKit.UIColor?)
+}
+extension UIKit.UIButton {
+  @_Concurrency.MainActor(unsafe) public func setImageColor(color: UIKit.UIColor?)
+}
+extension UIKit.UIColor {
+  convenience public init(red: Swift.Int, green: Swift.Int, blue: Swift.Int, alpha: Swift.Int)
+  convenience public init(rgb: Swift.Int, alpha: Swift.Float = 1.0)
+  convenience public init(argb: Swift.UInt32)
+  convenience public init(argb: Swift.String)
+}
+extension Foundation.NSMutableAttributedString {
+  public func setColorForText(_ textToFind: Swift.String?, with color: UIKit.UIColor, additionalAttributes: [Foundation.NSAttributedString.Key : Any] = [:])
+}
+extension Swift.String {
+  public func pathExtension() -> Swift.String
+}
+extension UIKit.UIFont {
+  public var bold: UIKit.UIFont {
+    get
+  }
+  public var italic: UIKit.UIFont {
+    get
+  }
+  public var boldItalic: UIKit.UIFont {
+    get
+  }
+  public func with(_ traits: UIKit.UIFontDescriptor.SymbolicTraits...) -> UIKit.UIFont
+  public func without(_ traits: UIKit.UIFontDescriptor.SymbolicTraits...) -> UIKit.UIFont
+}
+@objc public enum TVButtonLocation : Swift.Int, Swift.RawRepresentable {
+  case TOP_LEFT
+  case TOP_RIGHT
+  case NONE
+  public typealias RawValue = Swift.String
+  public var rawValue: TrustVisionCoreSDK.TVButtonLocation.RawValue {
+    get
+  }
+  public init?(rawValue: TrustVisionCoreSDK.TVButtonLocation.RawValue)
+}
+public struct TVThemeDefaultValues {
+  public static var normalLabelTheme: TrustVisionCoreSDK.TVLabelTheme {
+    get
+    set
+  }
+  public static var titleLabelTheme: TrustVisionCoreSDK.TVLabelTheme {
+    get
+    set
+  }
+  public static var errorLabelTheme: TrustVisionCoreSDK.TVLabelTheme {
+    get
+    set
+  }
+  public static var instructionLabelTheme: TrustVisionCoreSDK.TVLabelTheme {
+    get
+    set
+  }
+  public static var timeoutLabelTheme: TrustVisionCoreSDK.TVLabelTheme {
+    get
+    set
+  }
+  public static let textColor: UIKit.UIColor
+  public static let backgroundColor: UIKit.UIColor
+  public static let normalTextFont: UIKit.UIFont
+  public static let titleTextFont: UIKit.UIFont
+  public static let errorColor: UIKit.UIColor
+  public static let closeButtonLocation: TrustVisionCoreSDK.TVButtonLocation
+  public static func reset()
+}
+@_hasMissingDesignatedInitializers public class TVTimer {
+  public func start()
+  public func stop()
+  public func pause()
+  public func resume()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TVTimeoutTimer : TrustVisionCoreSDK.TVTimer {
+  override public func start()
+  override public func pause()
+  override public func resume()
+  @objc deinit
+}
+public protocol TVEventTrackingPageProtocol : AnyObject {
+  func getPageName() -> Swift.String
+  func trackEvent(name: Swift.String)
+}
+extension TrustVisionCoreSDK.TVEventTrackingPageProtocol {
+  public func getPageName() -> Swift.String
+  public func trackEvent(name: Swift.String)
+  public func trackEvent(event: TrustVisionCoreSDK.TVTrackingEvent.Event)
+}
+@_hasMissingDesignatedInitializers @objc public class TVTrackingEvent : ObjectiveC.NSObject {
+  public enum Event {
+    case close
+    case livenessIntroConfirm
+    case livenessClose
+    case livenessConfirm
+    case livenessRetry
+    case livenessCapture
+    case idIntroConfirm
+    case idClose
+    case idConfirm
+    case idRetry
+    case idCapture
+    public static func == (a: TrustVisionCoreSDK.TVTrackingEvent.Event, b: TrustVisionCoreSDK.TVTrackingEvent.Event) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var name: Swift.String {
+    get
+  }
+  @objc public var params: [Swift.String : Swift.String] {
+    get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class TVUIButton : UIKit.UIButton {
+  @_Concurrency.MainActor(unsafe) public var backgroundColors: [UIKit.UIColor]?
+  @_Concurrency.MainActor(unsafe) public var isBackgroundGradientHorizontal: Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public class LineF {
+  public var a: CoreGraphics.CGFloat
+  public var b: CoreGraphics.CGFloat
+  public var c: CoreGraphics.CGFloat
+  public init(a: CoreGraphics.CGFloat, b: CoreGraphics.CGFloat, c: CoreGraphics.CGFloat)
+  @objc deinit
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func takeScreenshot() -> UIKit.UIImage
+  @_Concurrency.MainActor(unsafe) public func rotate(angle: CoreGraphics.CGFloat)
+  @_Concurrency.MainActor(unsafe) public func rotateInfinity()
+}
+extension UIKit.UIColor {
+  convenience public init(hex: Swift.UInt32, alpha: CoreGraphics.CGFloat)
+}
+extension Swift.Collection {
+  public subscript(atIndex i: Self.Index) -> Self.Iterator.Element? {
+    get
+  }
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func applyGradient(colours: [UIKit.UIColor], isVertical: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) public func applyGradient(colours: [UIKit.UIColor], locations: [Foundation.NSNumber]?, isVertical: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func removeAllConstraints()
+}
+extension Swift.Encodable {
+  public var dictionary: [Swift.String : Any]? {
+    get
+  }
+}
+extension Swift.String {
+  public func hexStringToBytes() -> [Swift.UInt8]?
+  public func reverseBytes() -> Foundation.Data?
+}
+extension UIKit.UINavigationController {
+  @_Concurrency.MainActor(unsafe) public func popToViewControllerOfType(classType: Swift.AnyClass)
+}
+extension UIKit.UIFont {
+  public static func registerFont(withName name: Swift.String)
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public static func vibrate()
+}
+extension Swift.Dictionary {
+  public func toJson() throws -> Swift.String
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func removeConstraint(firstItem: UIKit.UIView, secondItem: UIKit.UIView, firstAttribute: UIKit.NSLayoutConstraint.Attribute, secondAttribute: UIKit.NSLayoutConstraint.Attribute)
+  @_Concurrency.MainActor(unsafe) public func removeConstraint(firstItem: UIKit.UIView, firstAttribute: UIKit.NSLayoutConstraint.Attribute)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class TVUILabel : UIKit.UILabel {
+  @_Concurrency.MainActor(unsafe) public var padding: UIKit.UIEdgeInsets
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func drawText(in rect: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
+    @_Concurrency.MainActor(unsafe) @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var bounds: CoreGraphics.CGRect {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class TVUIImageLabel : TrustVisionCoreSDK.TVBaseView {
+  @_Concurrency.MainActor(unsafe) public var text: Swift.String? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var textAlignment: UIKit.NSTextAlignment {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var textColor: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var padding: UIKit.UIEdgeInsets {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var backgroundImageView: UIKit.UIImageView
+  @_Concurrency.MainActor(unsafe) public var label: TrustVisionCoreSDK.TVUILabel
+  @_Concurrency.MainActor(unsafe) public func setImage(_ image: UIKit.UIImage?, tintColor: UIKit.UIColor?)
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class TVVideoDebugViewController : TrustVisionCoreSDK.TVViewController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) override public func setupViews()
+  @_Concurrency.MainActor(unsafe) override public func setupActions()
+  @_Concurrency.MainActor(unsafe) override public func setupLayouts()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class TVBaseViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func updateViewConstraints()
+  @_Concurrency.MainActor(unsafe) open func setupViewWithCurrentConfig()
+  @_Concurrency.MainActor(unsafe) open func setupViews()
+  @_Concurrency.MainActor(unsafe) open func setupActions()
+  @_Concurrency.MainActor(unsafe) open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class TVViewController : TrustVisionCoreSDK.TVBaseViewController, TrustVisionCoreSDK.TVEventTrackingPageProtocol {
+  @_Concurrency.MainActor(unsafe) public var topLeftButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var topRightButton: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) public var closeButton: UIKit.UIButton! {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var titleLabel: TrustVisionCoreSDK.TVUILabel!
+  @_Concurrency.MainActor(unsafe) public var mConfig: TrustVisionCoreSDK.TVSDKConfig {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var requiredOrientation: UIKit.UIInterfaceOrientation! {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public func dismissAndCallback(_ error: TrustVisionCoreSDK.TVError = TVLocalErrorCode.sdkCanceled.error)
+  @_Concurrency.MainActor(unsafe) override open func setupViews()
+  @_Concurrency.MainActor(unsafe) override open func setupActions()
+  @_Concurrency.MainActor(unsafe) override open func setupLayouts()
+  @_Concurrency.MainActor(unsafe) open func titleLabelString() -> Swift.String?
+  @objc @_Concurrency.MainActor(unsafe) open func closeButtonPressed()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension TrustVisionCoreSDK.TVViewController : UIKit.UIAdaptivePresentationControllerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func presentationControllerDidDismiss(_ presentationController: UIKit.UIPresentationController)
+}
+public protocol TVViewControllerBuilderProtocol {
+  func idDetectionVcType() -> TrustVisionCoreSDK.IDDetectionViewProtocol.Type
+  func idDetectionVmType() -> TrustVisionCoreSDK.IDDetectionViewModelProtocol.Type
+  func livenessDetectionVcType() -> TrustVisionCoreSDK.TVLivenessDetectionViewProtocol.Type
+  func livenessDetectionVmType() -> TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol.Type
+  func createIDDetection(vcType: TrustVisionCoreSDK.IDDetectionViewProtocol.Type, vmType: TrustVisionCoreSDK.IDDetectionViewModelProtocol.Type) -> UIKit.UIViewController
+  func createLivenessDetection(vcType: TrustVisionCoreSDK.TVLivenessDetectionViewProtocol.Type, vmType: TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol.Type) -> UIKit.UIViewController
+  func createIDDetectionResult() -> UIKit.UIViewController
+  func createIDDetection(cardSide: TrustVisionCoreSDK.TVCardSide) -> UIKit.UIViewController
+  func createLivenessDetectionResult() -> UIKit.UIViewController
+  func createLivenessDetection(showInstruction: Swift.Bool) -> UIKit.UIViewController
+  func createCompareViewController() -> UIKit.UIViewController
+  func createConfirmationButton(type: TrustVisionCoreSDK.TVConfirmationButtonType, image: UIKit.UIImage, didPressCallback: (() -> Swift.Void)?) -> UIKit.UIView
+  func createLivenessStepView() -> TrustVisionCoreSDK.PureLayoutTVLivenessStepViewProtocol
+}
+extension TrustVisionCoreSDK.TVViewControllerBuilderProtocol {
+  public func idDetectionVcType() -> TrustVisionCoreSDK.IDDetectionViewProtocol.Type
+  public func idDetectionVmType() -> TrustVisionCoreSDK.IDDetectionViewModelProtocol.Type
+  public func livenessDetectionVcType() -> TrustVisionCoreSDK.TVLivenessDetectionViewProtocol.Type
+  public func livenessDetectionVmType() -> TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol.Type
+  public func createIDDetectionResult() -> UIKit.UIViewController
+  public func createIDDetection(vcType: TrustVisionCoreSDK.IDDetectionViewProtocol.Type, vmType: TrustVisionCoreSDK.IDDetectionViewModelProtocol.Type) -> UIKit.UIViewController
+  public func createLivenessDetection(vcType: TrustVisionCoreSDK.TVLivenessDetectionViewProtocol.Type, vmType: TrustVisionCoreSDK.TVLivenessDetectionViewModelProtocol.Type) -> UIKit.UIViewController
+  public func createIDDetection(cardSide: TrustVisionCoreSDK.TVCardSide) -> UIKit.UIViewController
+  public func createLivenessDetectionResult() -> UIKit.UIViewController
+  public func createLivenessDetection(showInstruction: Swift.Bool) -> UIKit.UIViewController
+  public func createCompareViewController() -> UIKit.UIViewController
+  public func createConfirmationButton(type: TrustVisionCoreSDK.TVConfirmationButtonType, image: UIKit.UIImage, didPressCallback: (() -> Swift.Void)?) -> UIKit.UIView
+  public func createLivenessStepView() -> TrustVisionCoreSDK.PureLayoutTVLivenessStepViewProtocol
+}
+open class TVViewControllerBuilder : TrustVisionCoreSDK.TVViewControllerBuilderProtocol {
+  public init()
+  @objc deinit
+}
+extension UIKit.UIImage {
+  convenience public init?(pixelBuffer: CoreVideo.CVPixelBuffer)
+}
+extension UIKit.UIImage {
+  public func roundedImage(cornerRadius: CoreGraphics.CGFloat) -> UIKit.UIImage?
+  public func alpha(_ value: CoreGraphics.CGFloat) -> UIKit.UIImage
+}
+extension UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) public func showLoadingHUD(loadingImg: UIKit.UIImage)
+  @_Concurrency.MainActor(unsafe) public func showLoadingHUD(text: Swift.String?, loadingImg: UIKit.UIImage)
+  @_Concurrency.MainActor(unsafe) public func hideLoadingHUD()
+}
+extension TrustVisionCoreSDK.SdkMode : Swift.Equatable {}
+extension TrustVisionCoreSDK.SdkMode : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVFaceDetectionType : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVFaceDetectionType : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVFaceDetectionType : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.Sound : Swift.Equatable {}
+extension TrustVisionCoreSDK.Sound : Swift.Hashable {}
+extension TrustVisionCoreSDK.Sound : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.Algorithm : Swift.Equatable {}
+extension TrustVisionCoreSDK.Algorithm : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVSdkEnvironment : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVSdkEnvironment : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVCompareFacesResult.MatchResult : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVCompareFacesResult.MatchResult : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVCompareFacesResult.MatchResult : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVConfirmationButtonType : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVConfirmationButtonType : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVGestureImage.GestureType : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVGestureImage.GestureType : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVGestureImage.GestureType : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVGestureImage.CodingKeys : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVGestureImage.CodingKeys : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVGestureImage.CodingKeys : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVImageClass.CodingKeys : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVImageClass.CodingKeys : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVImageClass.CodingKeys : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVErrorCategory : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVErrorCategory : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVErrorCategory : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVLocalErrorCode : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVLocalErrorCode : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVCardSide : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVCardSide : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVCardSide : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVCardType.CardOrientation : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVCardType.CardOrientation : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVCardType.CardOrientation : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.LivenessOption : Swift.Equatable {}
+extension TrustVisionCoreSDK.LivenessOption : Swift.Hashable {}
+extension TrustVisionCoreSDK.LivenessOption : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.CameraMode : Swift.Equatable {}
+extension TrustVisionCoreSDK.CameraMode : Swift.Hashable {}
+extension TrustVisionCoreSDK.CameraMode : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVSDKConfig.Step : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVSDKConfig.Step : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVSDKConfig.Step : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVSDKConfig.ActionMode : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVSDKConfig.ActionMode : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVSDKConfig.ActionMode : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVFaceTrackingSetting.Method : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVFaceTrackingSetting.Method : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVLivenessOption : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVLivenessOption : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVLivenessOption : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVCameraOption : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVCameraOption : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVCameraOption : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVServerLogApiStatus : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVServerLogApiStatus : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVServerLogApiStatus : Swift.RawRepresentable {}
+extension TrustVisionCoreSDK.TVButtonLocation : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVButtonLocation : Swift.Hashable {}
+extension TrustVisionCoreSDK.TVTrackingEvent.Event : Swift.Equatable {}
+extension TrustVisionCoreSDK.TVTrackingEvent.Event : Swift.Hashable {}
